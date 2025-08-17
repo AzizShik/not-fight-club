@@ -47,5 +47,9 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "dependencies": {
+    "normalize-scss": "^8.0.0",
+    "normalize.css": "^8.0.1"
+  }
 }
