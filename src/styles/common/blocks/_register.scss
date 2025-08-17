@@ -1,0 +1,29 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.register__title {
+  margin-bottom: 25px;
+}
+
+.register__input-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 15px;
+}
+
+.register__input-label {
+  font-size: 24px;
+}
+
+.register__input {
+}
+
+.register__btn {
+  margin-top: 25px;
+}
