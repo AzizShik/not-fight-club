@@ -28,6 +28,15 @@ button {
   outline: none;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 .span-text-special {
   font-family: $secondFamily;
 }
@@ -46,8 +55,8 @@ button {
   border-radius: 4px;
   font-family: $secondFamily;
   font-size: 24px;
-  border: 1px solid $gondor-white;
-  transition: all 0.3s ease;
+  border: 1px solid $color-theme;
+  transition: box-shadow 0.3s ease;
 }
 
 .title {
@@ -82,7 +91,7 @@ button {
     color: $color-theme;
   }
 
-  .btn:active:not(:disabled){
+  .btn:active:not(:disabled) {
     transform: translateY(-1px) scale(0.98);
   }
 
@@ -94,5 +103,7 @@ button {
   .input:focus {
     box-shadow: 0 10px 20px rgba($color: $color-theme, $alpha: 0.2),
       0 6px 6px rgba($color: $color-theme, $alpha: 0.25);
+    outline: 2px solid $bg-theme;
+    outline-offset: -3px;
   }
 }

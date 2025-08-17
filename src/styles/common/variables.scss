@@ -1,8 +1,10 @@
 $fontFamily: 'GoogleSansCode', sans-serif;
 $secondFamily: 'Forum', sans-serif;
 
-$bg-theme: #1d1b1b;
+$bg-theme: #111;
 $color-theme: #fff;
+// $bg-theme: #fff;
+// $color-theme: #000;
 
 // LOTR SCSS Color Variables
 $shire-green: #4a6b22; // Lush Hobbiton green
@@ -20,34 +22,3 @@ $sauron-eye: #9e1e1e; // Fiery eye of Sauron
 $pipeweed: #6b8143; // Hobbit pipe-weed green
 $argonath-stone: #7d7d72; // Ancient statue gray
 $palantir: #3a4466; // Seeing-stone deep blue
-
-.hero-banner {
-  background: linear-gradient(to right, $mirkwood-dark, $shire-green);
-  color: $gondor-white;
-  border: 1px solid $rohan-gold;
-}
-
-.ring-wrapper {
-  background: radial-gradient(circle, $mithril 0%, $dwarven-brown 100%);
-  box-shadow: 0 0 15px $lorien-gold;
-}
-
-.enemy-section {
-  background-color: $mordor-red;
-  border-left: 4px solid $sauron-eye;
-}
-
-.elven-text {
-  color: $rivendell-silver;
-  text-shadow: 0 0 3px rgba($mithril, 0.7);
-}
-
-.mordor-theme {
-  background: $mordor-red;
-  color: $gondor-white;
-}
-
-.rivendell-theme {
-  background: $rivendell-silver;
-  color: $mirkwood-dark;
-}

@@ -2,7 +2,7 @@
 @use './common/fonts.scss';
 @use './common/variables.scss' as *;
 @use './common/base.scss';
-@use './common/blocks/register';
+@use './blocks/register';
 
 body {
   font-family: $fontFamily;
