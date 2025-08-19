@@ -2,10 +2,28 @@
 @use './common/fonts.scss';
 @use './common/variables.scss' as *;
 @use './common/base.scss';
+@use './blocks/toolbar';
+@use './blocks/popup';
 @use './blocks/register';
+@use './blocks/home';
+@use './blocks/character';
 
 body {
   font-family: $fontFamily;
   background: $bg-theme;
   color: $color-theme;
 }
+
+body.lock {
+  overflow: hidden;
+}
+
+.overlay-container {
+  position: relative;
+  z-index: 100;
+}
+
+.active {
+  display: flex;
+}
+

@@ -12,22 +12,92 @@
 
   <!-- <div id="root"></div> -->
 
-  <section class="register black-overlay">
-    <div class="register__container ">
+  <section class="register overlay">
+    <div class="register__container overlay-container">
       <img src="./assets/images/frodo.jpg" alt="Image" class="register__img">
       <h2 class="register__title title">Create your character</h2>
       <div class="register__input-wrapper input-wrapper">
         <label for="register_input" class="register__input-label input-label">Character Name</label>
-        <input type="text" class="register__input input" id="register_input" placeholder="Character Name"
+        <input type="text" class="register__input input" id="register_input" placeholder="Frodo Baggins"
           data-register-input>
       </div>
-      <button class="register__btn btn" data-register-btn disabled>Create Character</button>
+      <button class="register__btn btn btn--ring-icon" data-register-btn disabled>Create Character</button>
+    </div>
+  </section>
+
+  <section class="toolbar active">
+    <div class="container overlay-container">
+      <div class="toolbar__inner">
+        <h2 class="toolbar__left">Main</h2>
+        <nav class="toolbar__right">
+          <ul class="toolbar__list">
+            <li class="toolbar__item">
+              <a href="#home" class="toolbar__link btn">Home</a>
+            </li>
+            <li class="toolbar__item">
+              <a href="#character" class="toolbar__link btn">Character</a>
+            </li>
+            <li class="toolbar__item">
+              <a href="#settings" class="toolbar__link btn">Settings</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="home overlay">
+    <div class="home__container overlay-container">
+      <h2>Welcome, Frodo!</h2>
+      <button class="home__btn btn btn--ring-icon">Fight</button>
+    </div>
+  </section>
+
+  <section class="character overlay">
+    <div class="container overlay-container">
+      <div class="character__inner">
+        <div class="character__avatar" data-character_avatar>
+          <img src="assets/images/character_frodo.jpg" alt="Avatar" class="character__avatar-img">
+          <div class="character__avatar-edit-container" data-character_edit_container>
+            <button class="character__avatar-edit-container-btn">
+              <img src="./assets/icons/edit.svg" alt="icon" class="character__avatar-edit-container-icon">
+            </button>
+          </div>
+        </div>
+        <div class="character__info">
+          <h2 class="character__name">Frodo</h2>
+          <div class="character__results">
+            <div class="character__results-wins">Wins: <span class="character__results-wins-num">0</span></div>
+            <div class="character__results-loses">Loses: <span class="character__results-loses-num">0</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
 
-
-
+  <div class="popup" data-popup>
+    <div class="popup__container" data-popup_container>
+      <button class="popup__close">
+        <img src="./assets/icons/close.svg" alt="close icon" class="popup__close-icon">
+      </button>
+      <div class="popup__title">Choose your character</div>
+      <div class="popup__content">
+        <div class="popup__content-item">
+          <img src="./assets/images/character_frodo.jpg" alt="Avatar Image" class="popup__content-item-img">
+        </div>
+        <div class="popup__content-item">
+          <img src="./assets/images/character_gandalf.jpg" alt="Avatar Image" class="popup__content-item-img">
+        </div>
+        <div class="popup__content-item">
+          <img src="./assets/images/character_aragorn.jpg" alt="Avatar Image" class="popup__content-item-img">
+        </div>
+        <div class="popup__content-item">
+          <img src="./assets/images/character_legolas.jpg" alt="Avatar Image" class="popup__content-item-img">
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 

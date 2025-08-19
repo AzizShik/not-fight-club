@@ -1,0 +1,123 @@
+@use '../common/variables.scss' as *;
+
+.character {
+  padding-top: 130px;
+  display: flex;
+  min-height: 100vh;
+  background-image: url('../../assets/images/register-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.character__inner {
+  display: flex;
+  gap: 50px;
+}
+
+.character__avatar {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  // overflow: hidden;
+  box-shadow: 0 3px 6px rgba($color: $color-theme, $alpha: 0.15),
+    0 3px 6px rgba($color: $color-theme, $alpha: 0.25);
+  transition: all 0.3s ease;
+}
+
+.character__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.character__avatar-edit-container {
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 10px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba($color: $color-theme, $alpha: 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.character__avatar-edit-container-btn {
+  border: 1px solid $bg-theme;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  box-shadow: 0 3px 6px rgba($color: $color-theme, $alpha: 0.15),
+    0 3px 6px rgba($color: $color-theme, $alpha: 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.character__avatar-edit-container-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.character__info {
+  max-width: 200px;
+  width: 100%;
+}
+
+.character__name {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.character__results {
+  font-size: 28px;
+}
+
+.character__results-wins {
+  color: $wins-color;
+  margin-bottom: 10px;
+}
+
+.character__results-wins-num {
+  font-size: 32px;
+  text-decoration: underline;
+}
+
+.character__results-loses {
+  color: $loses-color;
+}
+
+.character__results-loses-num {
+  font-size: 32px;
+  text-decoration: underline;
+}
+
+.character__avatar-edit-container--active {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .character__avatar:hover {
+    box-shadow: 0 6px 6px rgba($color: $color-theme, $alpha: 0.15),
+      0 6px 6px rgba($color: $color-theme, $alpha: 0.25);
+  }
+
+  .character__avatar-edit-container-btn:hover {
+    box-shadow: 0 10px 10px rgba($color: $color-theme, $alpha: 0.15),
+      0 10px 10px rgba($color: $color-theme, $alpha: 0.25);
+  }
+
+  .character__avatar-edit-container-btn:active {
+    box-shadow: 0 10px 10px rgba($color: $color-theme, $alpha: 0.15),
+      0 10px 10px rgba($color: $color-theme, $alpha: 0.25);
+    transform: translateY(-1px) scale(0.98);
+  }
+}

@@ -1,0 +1,33 @@
+.home {
+  display: flex;
+
+  display: none;
+
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('../../assets/images/home-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.home__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.overlay-container {
+
+}
+
+.home__btn {
+  max-width: 200px;
+  width: 100%;
+}
+
+.btn {
+}
+.btn--ring-icon {
+}
