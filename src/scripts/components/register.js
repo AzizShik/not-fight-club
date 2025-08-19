@@ -1,6 +1,6 @@
 export function initRegister() {
-  const registerBtn = document.querySelector('[data-register-btn]');
-  const registerInput = document.querySelector('[data-register-input]');
+  const registerBtn = document.querySelector('[data-register_btn]');
+  const registerInput = document.querySelector('[data-register_input]');
 
   registerBtn.addEventListener('click', () => {
     registerPlayer();

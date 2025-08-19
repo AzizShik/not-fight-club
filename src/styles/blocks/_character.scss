@@ -3,6 +3,9 @@
 .character {
   padding-top: 130px;
   display: flex;
+
+  display: none;
+
   min-height: 100vh;
   background-image: url('../../assets/images/register-bg.jpg');
   background-repeat: no-repeat;

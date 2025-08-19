@@ -7,6 +7,7 @@
 @use './blocks/register';
 @use './blocks/home';
 @use './blocks/character';
+@use './blocks/settings';
 
 body {
   font-family: $fontFamily;
