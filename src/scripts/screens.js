@@ -3,6 +3,7 @@ import { loadGameState, saveGameState } from './storage';
 import { initCharacter } from './components/character';
 import { initHome } from './components/home';
 import { initSettings } from './components/settings';
+import { initBattle } from './components/battle';
 
 import frodoAvatarImg from '../assets/images/character_frodo.jpg';
 import gandalfAvatarImg from '../assets/images/character_gandalf.jpg';
@@ -60,6 +61,7 @@ export function initScreens() {
     toolbarNavEl.classList.add('active');
 
     saveGameState();
+    initHome();
     switchScreen('home', screens);
   });
 
@@ -92,7 +94,7 @@ export function initScreens() {
   battleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     switchScreen('battle', screens);
-    // initSettings();
+    initBattle();
   });
 }
 
