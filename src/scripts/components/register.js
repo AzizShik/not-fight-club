@@ -23,5 +23,5 @@ export function initRegister() {
     localStorage.setItem('notFightClubGame', JSON.stringify(gameState));
   }
 
-  console.log('register');
+
 }

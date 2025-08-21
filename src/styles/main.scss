@@ -8,6 +8,7 @@
 @use './blocks/home';
 @use './blocks/character';
 @use './blocks/settings';
+@use './blocks/battle';
 
 body {
   font-family: $fontFamily;
@@ -27,4 +28,3 @@ body.lock {
 .active {
   display: flex;
 }
-

@@ -12,9 +12,9 @@
 
   <!-- <div id="root"></div> -->
 
-  <section class="register overlay">
+  <section class="register overlay" data-screen="register">
     <div class="register__container overlay-container">
-      <img src="./assets/images/frodo.jpg" alt="Image" class="register__img">
+      <img src="./assets/images/register_frodo.jpg" alt="Image" class="register__img">
       <h2 class="register__title title">Create your character</h2>
       <div class="register__input-wrapper input-wrapper">
         <label for="register_input" class="register__input-label input-label">Character Name</label>
@@ -25,20 +25,20 @@
     </div>
   </section>
 
-  <section class="toolbar active">
+  <section class="toolbar active" data-screen="toolbar">
     <div class="container overlay-container">
       <div class="toolbar__inner">
-        <h2 class="toolbar__left">Main</h2>
+        <h2 class="toolbar__left" data-page_title>Home</h2>
         <nav class="toolbar__right">
           <ul class="toolbar__list">
             <li class="toolbar__item">
-              <a href="#home" class="toolbar__link btn">Home</a>
+              <a href="#home" class="toolbar__link btn" data-page_btn="home">Home</a>
             </li>
             <li class="toolbar__item">
-              <a href="#character" class="toolbar__link btn">Character</a>
+              <a href="#character" class="toolbar__link btn" data-page_btn="character">Character</a>
             </li>
             <li class="toolbar__item">
-              <a href="#settings" class="toolbar__link btn">Settings</a>
+              <a href="#settings" class="toolbar__link btn" data-page_btn="settings">Settings</a>
             </li>
           </ul>
         </nav>
@@ -46,36 +46,40 @@
     </div>
   </section>
 
-  <section class="home overlay">
+  <section class="home overlay" data-screen="home">
     <div class="home__container overlay-container">
-      <h2>Welcome, Frodo!</h2>
+      <h2 class="home__title">Welcome, <span class="home__title-name" data-home_title_name>Frodo</span>!</h2>
       <button class="home__btn btn btn--ring-icon">Fight</button>
     </div>
   </section>
 
-  <section class="character overlay">
+  <section class="character overlay" data-screen="character">
     <div class="container overlay-container">
       <div class="character__inner">
         <div class="character__avatar" data-character_avatar>
-          <img src="assets/images/character_frodo.jpg" alt="Avatar" class="character__avatar-img">
+          <img src="assets/images/character_frodo.jpg" alt="Avatar" class="character__avatar-img"
+            data-character_avatar_img>
           <div class="character__avatar-edit-container" data-character_edit_container>
             <button class="character__avatar-edit-container-btn">
               <img src="./assets/icons/edit.svg" alt="icon" class="character__avatar-edit-container-icon">
             </button>
           </div>
+          <button class="btn character__avatar-btn" data-character_avatar_btn>Change Your Character</button>
         </div>
         <div class="character__info">
-          <h2 class="character__name">Frodo</h2>
+          <h2 class="character__name" data-character_name>Frodo</h2>
           <div class="character__results">
-            <div class="character__results-wins">Wins: <span class="character__results-wins-num">0</span></div>
-            <div class="character__results-loses">Loses: <span class="character__results-loses-num">0</span></div>
+            <div class="character__results-wins">Wins: <span class="character__results-wins-num"
+                data-result_wins>0</span></div>
+            <div class="character__results-loses">Loses: <span class="character__results-loses-num"
+                data-result_loses>0</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="settings overlay">
+  <section class="settings overlay" data-screen="settings">
     <div class="container overlay-container">
       <div class="settings__inner">
         <div class="settings__change-name" data-settings_change_name>
@@ -93,6 +97,114 @@
     </div>
   </section>
 
+  <div class="battle overlay" data-screen="battle">
+    <div class="container overlay-container">
+      <div class="battle__inner">
+        <div class="battle__panel">
+          <div class="battle__avatar">
+            <div class="battle__avatar-image-wrapper">
+              <img src="./assets/images/character_frodo.jpg" alt="Avatar" class="battle__avatar-image">
+            </div>
+            <div class="battle__avatar-name battle__avatar-name--character">Frodo</div>
+            <div class="battle__avatar-health">
+              <div class="battle__avatar-health-bar">
+                <div class="battle__avatar-health-bar-current">100</div>
+                <span>/</span>
+                <span class="battle__avatar-health-bar-total">100</span>
+              </div>
+              <div class="battle__avatar-health-bg"></div>
+            </div>
+          </div>
+          <div class="battle__controls">
+            <div class="battle__controls-title">Please pick 1 Attack zone and 2 Defence zones</div>
+            <div class="battle__controls-zone">
+              <div class="battle__controls-zone-attack">
+                <div class="battle__controls-zone-title"><span class="battle__controls-zone-title-attack">Attack</span> Zones</div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="head" name="attack" value="head"
+                    readonly>
+                  <label for="head" class="battle__controls-zone-radio-label">Head</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="neck" name="attack" value="neck"
+                    readonly>
+                  <label for="neck" class="battle__controls-zone-radio-label">Neck</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="body" name="attack" value="body"
+                    readonly>
+                  <label for="body" class="battle__controls-zone-radio-label">Body</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="belly" name="attack"
+                    value="belly" readonly>
+                  <label for="belly" class="battle__controls-zone-radio-label">Belly</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="legs" name="attack" value="legs"
+                    readonly>
+                  <label for="legs" class="battle__controls-zone-radio-label">Legs</label>
+                </div>
+              </div>
+              <div class="battle__controls-zone-defence">
+                <div class="battle__controls-zone-title"><span class="battle__controls-zone-title-defence">Defence</span> Zones</div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_head" name="defence"
+                    value="head" readonly>
+                  <label for="defence_head" class="battle__controls-zone-radio-label">Head</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_neck" name="defence"
+                    value="neck" readonly>
+                  <label for="defence_neck" class="battle__controls-zone-radio-label">Neck</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_body" name="defence"
+                    value="body" readonly>
+                  <label for="defence_body" class="battle__controls-zone-radio-label">Body</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_belly" name="defence"
+                    value="belly" readonly>
+                  <label for="defence_belly" class="battle__controls-zone-radio-label">Belly</label>
+                </div>
+                <div class="battle__controls-zone-radio">
+                  <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_legs" name="defence"
+                    value="legs" readonly>
+                  <label for="defence_legs" class="battle__controls-zone-radio-label">Legs</label>
+                </div>
+              </div>
+            </div>
+            <button class="btn battle__controls-btn btn--ring-icon">Attack!</button>
+          </div>
+          <div class="battle__avatar">
+            <div class="battle__avatar-image-wrapper">
+              <img src="./assets/images/enemy_spider.jpg" alt="Avatar" class="battle__avatar-image">
+            </div>
+            <div class="battle__avatar-name battle__avatar-name--enemy">Spider</div>
+            <div class="battle__avatar-health">
+              <div class="battle__avatar-health-bar">
+                <div class="battle__avatar-health-bar-current">100</div>
+                <span>/</span>
+                <span class="battle__avatar-health-bar-total">100</span>
+              </div>
+              <div class="battle__avatar-health-bg"></div>
+            </div>
+          </div>
+        </div>
+        <div class="battle__log">
+          <div class="battle__log-item">
+            <span class="battle__log-item-character battle__log-item-span">Frodo</span>
+            attacked
+            <span class="battle__log-item-enemy battle__log-item-span">Spider</span>
+            to
+            <span class="battle__log-item-zone battle__log-item-span">Legs</span>
+            but Spider was able to protect
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="popup" data-popup>
     <div class="popup__container" data-popup_container>
@@ -101,16 +213,16 @@
       </button>
       <div class="popup__title">Choose your character</div>
       <div class="popup__content">
-        <div class="popup__content-item">
+        <div class="popup__content-item" data-avatar_name="frodo">
           <img src="./assets/images/character_frodo.jpg" alt="Avatar Image" class="popup__content-item-img">
         </div>
-        <div class="popup__content-item">
+        <div class="popup__content-item" data-avatar_name="gandalf">
           <img src="./assets/images/character_gandalf.jpg" alt="Avatar Image" class="popup__content-item-img">
         </div>
-        <div class="popup__content-item">
+        <div class="popup__content-item" data-avatar_name="aragorn">
           <img src="./assets/images/character_aragorn.jpg" alt="Avatar Image" class="popup__content-item-img">
         </div>
-        <div class="popup__content-item">
+        <div class="popup__content-item" data-avatar_name="legolas">
           <img src="./assets/images/character_legolas.jpg" alt="Avatar Image" class="popup__content-item-img">
         </div>
       </div>

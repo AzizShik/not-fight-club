@@ -1,3 +1,9 @@
+import { gameState } from '../state';
+import { saveGameState } from '../storage';
+
+let editNameHandler = null;
+let inputHandler = null;
+
 export function initSettings() {
   const settingsChangeName = document.querySelector(
     '[data-settings_change_name]',
@@ -10,22 +16,38 @@ export function initSettings() {
     '[data-settings_change-name_current_name]',
   );
 
-  let currentPlayerName = currentNameSpan.textContent;
+  currentNameSpan.textContent = gameState.player.name;
+  let currentPlayerName = gameState.player.name;
 
-  editNameBtn.addEventListener('click', () => {
+  if (editNameHandler) {
+    editNameBtn.removeEventListener('click', editNameHandler);
+    settingsChangeName.classList.remove('settings__change-name--active');
+    editNameBtn.textContent = 'Edit';
+    currentNameSpan.textContent = currentPlayerName;
+  }
+  if (inputHandler) {
+    changeNameInput.removeEventListener('input', inputHandler);
+  }
+
+  editNameHandler = (e) => {
     editChangeInput();
-  });
+    gameState.player.name = changeNameInput.value.trim();
+    saveGameState();
+  };
 
-  changeNameInput.addEventListener('input', (e) => {
+  inputHandler = (e) => {
     const input = e.target;
 
     if (!input.value) {
       editNameBtn.disabled = true;
     } else {
       editNameBtn.disabled = false;
-      currentPlayerName = input.value;
+      currentPlayerName = input.value.trim();
     }
-  });
+  };
+
+  editNameBtn.addEventListener('click', editNameHandler);
+  changeNameInput.addEventListener('input', inputHandler);
 
   function editChangeInput() {
     if (
@@ -40,4 +62,31 @@ export function initSettings() {
       currentNameSpan.textContent = currentPlayerName;
     }
   }
+}
+
+export function cleanupSettings() {
+  const editNameBtn = document.querySelector('[data-edit_change_name]');
+  const changeNameInput = document.querySelector(
+    '[data-settings_change_name_input]',
+  );
+  const currentNameSpan = document.querySelector(
+    '[data-settings_change-name_current_name]',
+  );
+  const settingsChangeName = document.querySelector(
+    '[data-settings_change_name]',
+  );
+
+  if (editNameHandler && editNameBtn) {
+    editNameBtn.removeEventListener('click', editNameHandler);
+  }
+  if (inputHandler && changeNameInput) {
+    changeNameInput.removeEventListener('input', inputHandler);
+  }
+
+  settingsChangeName.classList.remove('settings__change-name--active');
+  editNameBtn.textContent = 'Edit';
+  currentNameSpan.textContent = currentPlayerName;
+
+  editNameHandler = null;
+  inputHandler = null;
 }
