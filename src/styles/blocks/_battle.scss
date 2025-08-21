@@ -175,11 +175,12 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
   opacity: 0;
   z-index: 100;
+  transition: all 0.3s ease;
 }
 
 .battle__controls-zone-attack .battle__controls-zone-radio-label:before {
@@ -187,7 +188,7 @@
 }
 
 .battle__controls-zone-attack .battle__controls-zone-radio-label:after {
-  background: $loses-color;
+  background-image: url('../../assets/icons/sword.svg');
   right: -30px;
 }
 
@@ -196,7 +197,7 @@
 }
 
 .battle__controls-zone-defence .battle__controls-zone-radio-label:after {
-  background: $defence-color;
+  background-image: url('../../assets/icons/shield.svg');
   left: -30px;
 }
 

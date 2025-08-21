@@ -41,6 +41,8 @@ export function initScreens() {
     '[data-page_btn="settings"]',
   );
 
+  const battleBtn = document.querySelector('[data-page_btn="battle"]');
+
   if (gameState.player.name) {
     homeScreenEl.classList.add('active');
     homeTitleName.textContent = gameState.player.name;
@@ -85,6 +87,12 @@ export function initScreens() {
     e.preventDefault();
     switchScreen('settings', screens);
     initSettings();
+  });
+
+  battleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchScreen('battle', screens);
+    // initSettings();
   });
 }
 

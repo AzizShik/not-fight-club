@@ -12,6 +12,6 @@ import { initSettings } from './components/settings';
 // initSettings();
 
 window.addEventListener('DOMContentLoaded', () => {
-  loadGameState();
-  initScreens();
+  // loadGameState();
+  // initScreens();
 });
