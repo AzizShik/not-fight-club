@@ -3,6 +3,8 @@ import { gameState } from '../state';
 let battleZoneAttackClickHandler = null;
 let battleZoneDefenceClickHandler = null;
 
+let battleAttackBtnHandler = null;
+
 export function initBattle() {
   if (gameState.enemy.name) {
     //
@@ -65,27 +67,49 @@ export function initBattle() {
     );
   }
 
+  const attackMaxEl = document.querySelector('[data-battle_zone_attack_max]');
+  const attackMaxSelect = parseInt(
+    attackMaxEl.dataset.battle_zone_attack_max,
+    10,
+  );
+
+  let attackSelectedCheboxesArr = [];
+
   battleZoneAttackClickHandler = (e) => {
     const el = e.target;
 
     if (el.tagName === 'LABEL') return;
 
-    const inputs = document.querySelectorAll(
-      '[data-battle_zone_attack_radio] input',
-    );
+    const selectedCheckboxes =
+      battleZoneAttack.querySelectorAll('input:checked').length;
 
     if (el.closest('[data-battle_zone_attack_radio]')) {
+      if (el.checked && attackSelectedCheboxesArr.length < attackMaxSelect) {
+        attackSelectedCheboxesArr.push(el);
+      }
+
       if (!el.checked) {
         el.checked = false;
-      } else {
-        inputs.forEach((input) => {
-          input.checked = false;
-        });
+        attackSelectedCheboxesArr = attackSelectedCheboxesArr.filter(
+          (e) => e != el,
+        );
+      }
 
-        el.checked = true;
+      if (selectedCheckboxes > attackMaxSelect) {
+        const lastAttackSelect = attackSelectedCheboxesArr.shift();
+        lastAttackSelect.checked = false;
+        attackSelectedCheboxesArr.push(el);
       }
     }
+
+    updateBattleBtnState();
   };
+
+  const defenceMaxEl = document.querySelector('[data-battle_zone_defence_max]');
+  const defenceMaxSelect = parseInt(
+    defenceMaxEl.dataset.battle_zone_defence_max,
+    10,
+  );
 
   let defenceSelectedCheboxesArr = [];
 
@@ -94,37 +118,52 @@ export function initBattle() {
 
     if (el.tagName === 'LABEL') return;
 
-    const maxSelect = 2;
-
-    const inputs = document.querySelectorAll(
-      '[data-battle_zone_defence_radio] input',
-    );
-
-    const selectedCheckboxes = document.querySelectorAll(
-      '[data-battle_zone_defence_radio] input:checked',
-    ).length;
+    const selectedCheckboxes =
+      battleZoneDefence.querySelectorAll('input:checked').length;
 
     if (el.closest('[data-battle_zone_defence_radio]')) {
-      if (el.checked && defenceSelectedCheboxesArr.length <= maxSelect) {
+      if (el.checked && defenceSelectedCheboxesArr.length < defenceMaxSelect) {
         defenceSelectedCheboxesArr.push(el);
       }
 
-      if (selectedCheckboxes > maxSelect) {
-        const lastChecked = defenceSelectedCheboxesArr.shift();
-        lastChecked.checked = false;
-      } else {
-        if (!el.checked) {
-          el.checked = false;
-          defenceSelectedCheboxesArr = defenceSelectedCheboxesArr.filter(
-            (e) => e != el,
-          );
-        } else {
-          el.checked = true;
-        }
+      if (!el.checked) {
+        el.checked = false;
+        defenceSelectedCheboxesArr = defenceSelectedCheboxesArr.filter(
+          (e) => e != el,
+        );
+      }
+
+      if (selectedCheckboxes > defenceMaxSelect) {
+        const lastAttackSelect = defenceSelectedCheboxesArr.shift();
+        lastAttackSelect.checked = false;
+        defenceSelectedCheboxesArr.push(el);
       }
     }
+
+    updateBattleBtnState();
   };
+
+  function updateBattleBtnState() {
+    if (
+      (attackMaxSelect === attackSelectedCheboxesArr.length) &
+      (defenceMaxSelect === defenceSelectedCheboxesArr.length)
+    ) {
+      battleAttackBtn.disabled = false;
+    } else {
+      battleAttackBtn.disabled = true;
+    }
+  }
 
   battleZoneAttack.addEventListener('click', battleZoneAttackClickHandler);
   battleZoneDefence.addEventListener('click', battleZoneDefenceClickHandler);
+
+  if (battleAttackBtnHandler) {
+    battleAttackBtn.removeEvenetListener('click', battleAttackBtnHandler);
+  }
+
+  battleAttackBtnHandler = (e) => {
+    
+  };
+
+  battleAttackBtn.addEventListener('click', battleAttackBtnHandler);
 }

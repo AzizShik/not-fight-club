@@ -153,8 +153,10 @@
 }
 
 .battle__controls-zone-radio-label {
+  cursor: pointer;
   font-size: 36px;
   position: relative;
+  text-decoration: underline;
   // width: 120px;
 }
 
