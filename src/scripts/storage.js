@@ -8,6 +8,6 @@ export function loadGameState() {
   const savedState = localStorage.getItem('notFightClubGame');
   if (savedState) {
     const parsed = JSON.parse(savedState);
-    Object.assign(gameState.player, parsed.player);
+    Object.assign(gameState, parsed);
   }
 }

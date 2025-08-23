@@ -13,9 +13,9 @@ import { initBattle } from './components/battle';
 // initSettings();
 
 window.addEventListener('DOMContentLoaded', () => {
-  // loadGameState();
-  // initScreens();
-
   loadGameState();
-  initBattle();
+  initScreens();
+
+  // loadGameState();
+  // initBattle();
 });

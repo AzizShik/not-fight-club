@@ -97,7 +97,7 @@
     </div>
   </section>
 
-  <div class="battle overlay active" data-screen="battle">
+  <div class="battle overlay" data-screen="battle">
     <div class="container overlay-container">
       <div class="battle__inner">
         <div class="battle__panel">
@@ -113,7 +113,7 @@
                 <span>/</span>
                 <span class="battle__avatar-health-bar-total" data-battle_character_total_health>100</span>
               </div>
-              <div class="battle__avatar-health-bg"></div>
+              <div class="battle__avatar-health-bg" data-avatar_health_bg></div>
             </div>
           </div>
           <div class="battle__controls">
@@ -124,27 +124,27 @@
                   Zones</div>
                 <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="head" name="attack" value="head"
-                    readonly>
+                    readonly data-battle_zone_attack_input="head">
                   <label for="head" class="battle__controls-zone-radio-label">Head</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="neck" name="attack" value="neck"
-                    readonly>
+                    readonly data-battle_zone_attack_input="neck">
                   <label for="neck" class="battle__controls-zone-radio-label">Neck</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="body" name="attack" value="body"
-                    readonly>
+                    readonly data-battle_zone_attack_input="body">
                   <label for="body" class="battle__controls-zone-radio-label">Body</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="belly" name="attack"
-                    value="belly" readonly>
+                    value="belly" readonly data-battle_zone_attack_input="belly">
                   <label for="belly" class="battle__controls-zone-radio-label">Belly</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="legs" name="attack" value="legs"
-                    readonly>
+                    readonly data-battle_zone_attack_input="legs">
                   <label for="legs" class="battle__controls-zone-radio-label">Legs</label>
                 </div>
               </div>
@@ -153,27 +153,27 @@
                     class="battle__controls-zone-title-defence">Defence</span> Zones</div>
                 <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_head" name="defence"
-                    value="head" readonly>
+                    value="head" readonly data-battle_zone_defence_input="head">
                   <label for="defence_head" class="battle__controls-zone-radio-label">Head</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_neck" name="defence"
-                    value="neck" readonly>
+                    value="neck" readonly data-battle_zone_defence_input="neck">
                   <label for="defence_neck" class="battle__controls-zone-radio-label">Neck</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_body" name="defence"
-                    value="body" readonly>
+                    value="body" readonly data-battle_zone_defence_input="body">
                   <label for="defence_body" class="battle__controls-zone-radio-label">Body</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_belly" name="defence"
-                    value="belly" readonly>
+                    value="belly" readonly data-battle_zone_defence_input="belly">
                   <label for="defence_belly" class="battle__controls-zone-radio-label">Belly</label>
                 </div>
                 <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                   <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_legs" name="defence"
-                    value="legs" readonly>
+                    value="legs" readonly data-battle_zone_defence_input="legs">
                   <label for="defence_legs" class="battle__controls-zone-radio-label">Legs</label>
                 </div>
               </div>
@@ -192,19 +192,11 @@
                 <span>/</span>
                 <span class="battle__avatar-health-bar-total" data-battle_enemy_total_health>100</span>
               </div>
-              <div class="battle__avatar-health-bg"></div>
+              <div class="battle__avatar-health-bg" data-enemy_health_bg></div>
             </div>
           </div>
         </div>
-        <div class="battle__log">
-          <div class="battle__log-item">
-            <span class="battle__log-item-character battle__log-item-span">Frodo</span>
-            attacked
-            <span class="battle__log-item-enemy battle__log-item-span">Spider</span>
-            to
-            <span class="battle__log-item-zone battle__log-item-span">Legs</span>
-            but Spider was able to protect
-          </div>
+        <div class="battle__log" data-battle_log>
         </div>
       </div>
     </div>

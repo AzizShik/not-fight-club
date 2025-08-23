@@ -264,7 +264,6 @@
   margin-top: auto;
   padding: 20px;
   border: 1px solid $color-theme;
-  font-size: 32px;
   box-shadow: 0 3px 6px rgba($color: $color-theme, $alpha: 0.15),
     0 3px 6px rgba($color: $color-theme, $alpha: 0.25);
 }
@@ -272,10 +271,15 @@
 .battle__log-item {
   padding-bottom: 10px;
   border-bottom: 1px solid $color-theme;
+  font-size: 30px;
 }
 
 .battle__log-item-character {
   color: $wins-color;
+}
+
+.battle__log-item-damage {
+  color: $loses-color;
 }
 
 .battle__log-item-span {
@@ -288,4 +292,8 @@
 
 .battle__log-item-zone {
   color: $loses-color;
+}
+
+.battle__log-item-defend {
+  color: $defence-color;
 }
