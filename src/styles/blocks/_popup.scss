@@ -25,6 +25,7 @@
 .popup__container {
   position: relative;
   width: 80vw;
+  min-height: 400px;
   max-height: 100%;
   overflow-y: auto;
   background: $color-theme;
@@ -37,6 +38,10 @@
   font-size: 32px;
   text-align: center;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .popup__close {
@@ -54,12 +59,40 @@
   align-items: center;
   box-shadow: 0 3px 6px rgba($color: $bg-theme, $alpha: 0.15),
     0 3px 6px rgba($color: $bg-theme, $alpha: 0.25);
-    transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .popup__close-icon {
   width: 30px;
   height: 30px;
+}
+
+.popup[data-popup='results'] .popup__results-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.popup[data-popup='results'] .popup__container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+}
+
+.popup[data-popup='results'] .popup__title {
+  font-size: 48px;
+  margin-top: 30px;
+}
+
+.popup__results-btns-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.popup__results-btn {
+  border: 1px solid $bg-theme;
 }
 
 .popup__content {

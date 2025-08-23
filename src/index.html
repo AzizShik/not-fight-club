@@ -56,13 +56,15 @@
   <section class="character overlay" data-screen="character">
     <div class="container overlay-container">
       <div class="character__inner">
-        <div class="character__avatar" data-character_avatar>
-          <img src="assets/images/character_frodo.jpg" alt="Avatar" class="character__avatar-img"
-            data-character_avatar_img>
-          <div class="character__avatar-edit-container" data-character_edit_container>
-            <button class="character__avatar-edit-container-btn">
-              <img src="./assets/icons/edit.svg" alt="icon" class="character__avatar-edit-container-icon">
-            </button>
+        <div class="character__avatar-wrapper">
+          <div class="character__avatar" data-character_avatar>
+            <img src="assets/images/character_frodo.jpg" alt="Avatar" class="character__avatar-img"
+              data-character_avatar_img>
+            <div class="character__avatar-edit-container" data-character_edit_container>
+              <button class="character__avatar-edit-container-btn">
+                <img src="./assets/icons/edit.svg" alt="icon" class="character__avatar-edit-container-icon">
+              </button>
+            </div>
           </div>
           <button class="btn character__avatar-btn" data-character_avatar_btn>Change Your Character</button>
         </div>
@@ -119,7 +121,7 @@
           <div class="battle__controls">
             <div class="battle__controls-title">Please pick 1 Attack zone and 2 Defence zones</div>
             <div class="battle__controls-zone">
-              <div class="battle__controls-zone-attack" data-battle_zone_attack data-battle_zone_attack_max="1">
+              <div class="battle__controls-zone-attack" data-battle_zone_attack>
                 <div class="battle__controls-zone-title"><span class="battle__controls-zone-title-attack">Attack</span>
                   Zones</div>
                 <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
@@ -148,7 +150,7 @@
                   <label for="legs" class="battle__controls-zone-radio-label">Legs</label>
                 </div>
               </div>
-              <div class="battle__controls-zone-defence" data-battle_zone_defence data-battle_zone_defence_max="2">
+              <div class="battle__controls-zone-defence" data-battle_zone_defence >
                 <div class="battle__controls-zone-title"><span
                     class="battle__controls-zone-title-defence">Defence</span> Zones</div>
                 <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
@@ -202,7 +204,7 @@
     </div>
   </div>
 
-  <div class="popup" data-popup>
+  <div class="popup" data-popup="character_change">
     <div class="popup__container" data-popup_container>
       <button class="popup__close">
         <img src="./assets/icons/close.svg" alt="close icon" class="popup__close-icon">
@@ -221,6 +223,22 @@
         <div class="popup__content-item" data-avatar_name="legolas">
           <img src="./assets/images/character_legolas.jpg" alt="Avatar Image" class="popup__content-item-img">
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" data-popup="results">
+    <div class="popup__container" data-popup_container>
+      <button class="popup__close">
+        <img src="./assets/icons/close.svg" alt="close icon" class="popup__close-icon">
+      </button>
+      <div class="popup__title" data-popup__title>
+        Congratulations with your win!
+        <img src="'../../assets/icons/cup.svg" alt="icon" class="popup__results-icon">
+      </div>
+      <div class="popup__results-btns-container">
+        <button class="btn popup__results-btn" data-popup_results_btn_fight>New Fight</button>
+        <button class="btn popup__results-btn" data-popup_results_btn_character>Change Character</button>
       </div>
     </div>
   </div>

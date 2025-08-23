@@ -1,15 +1,19 @@
 import { gameState } from '../state';
 import { loadGameState, saveGameState } from '../storage';
+import { showPopup } from './popup';
 
 let battleZoneAttackClickHandler = null;
 let battleZoneDefenceClickHandler = null;
 
 let battleAttackBtnHandler = null;
 
+import cupAwarIconUrl from '../../assets/icons/cup.svg';
+import loseIconUrl from '../../assets/icons/lose.svg';
+
 export function initBattle() {
-  if (gameState.enemy.name) {
-    //
-  }
+  // if (gameState.enemy.name) {
+  //   //
+  // }
 
   const randomIndex = Math.floor(Math.random() * gameState.enemies.length);
   gameState.enemy = JSON.parse(JSON.stringify(gameState.enemies[randomIndex]));
@@ -29,6 +33,18 @@ export function initBattle() {
   const battleZoneAttackInputs = battleZoneAttack.querySelectorAll('input');
   const battleZoneDefenceInputs = battleZoneDefence.querySelectorAll('input');
 
+  function resetAllCheboxes() {
+    battleZoneAttackInputs.forEach((input) => {
+      input.checked = false;
+    });
+    battleZoneDefenceInputs.forEach((input) => {
+      input.checked = false;
+    });
+  }
+
+  resetAllCheboxes();
+  cleanBattleLogsHTML();
+
   if (battleZoneAttackClickHandler) {
     battleZoneAttack.removeEventListener('click', battleZoneAttackClickHandler);
   }
@@ -39,12 +55,6 @@ export function initBattle() {
       battleZoneDefenceClickHandler,
     );
   }
-
-  const attackMaxEl = document.querySelector('[data-battle_zone_attack_max]');
-  // const attackMaxSelect = parseInt(
-  //   attackMaxEl.dataset.battle_zone_attack_max,
-  //   10,
-  // );
 
   const attackMaxSelect = gameState.player.attackZones;
 
@@ -79,12 +89,6 @@ export function initBattle() {
 
     updateBattleBtnState();
   };
-
-  const defenceMaxEl = document.querySelector('[data-battle_zone_defence_max]');
-  // const defenceMaxSelect = parseInt(
-  //   defenceMaxEl.dataset.battle_zone_defence_max,
-  //   10,
-  // );
 
   const defenceMaxSelect = gameState.player.defendZones;
 
@@ -132,31 +136,31 @@ export function initBattle() {
   }
 
   function resetBattleZones() {
-    battleZoneAttackInputs.forEach((input) => {
-      input.checked = false;
-    });
-    battleZoneDefenceInputs.forEach((input) => {
-      input.checked = false;
-    });
+    // battleZoneAttackInputs.forEach((input) => {
+    //   input.checked = false;
+    // });
+    // battleZoneDefenceInputs.forEach((input) => {
+    //   input.checked = false;
+    // });
 
-    attackSelectedCheboxesArr = [];
-    defenceSelectedCheboxesArr = [];
+    // attackSelectedCheboxesArr = [];
+    // defenceSelectedCheboxesArr = [];
 
-    // gameState.battle.playerAttack = [];
-    // gameState.battle.playerDefend = [];
-    // gameState.battle.enemyAttack = [];
-    // gameState.battle.enemyDefend = [];
+    gameState.battle.playerAttack = [];
+    gameState.battle.playerDefend = [];
+    gameState.battle.enemyAttack = [];
+    gameState.battle.enemyDefend = [];
 
-    // saveGameState();
+    saveGameState();
 
-    battleAttackBtn.disabled = true;
+    // battleAttackBtn.disabled = true;
   }
 
   battleZoneAttack.addEventListener('click', battleZoneAttackClickHandler);
   battleZoneDefence.addEventListener('click', battleZoneDefenceClickHandler);
 
   if (battleAttackBtnHandler) {
-    battleAttackBtn.removeEvenetListener('click', battleAttackBtnHandler);
+    battleAttackBtn.removeEventListener('click', battleAttackBtnHandler);
   }
 
   battleAttackBtnHandler = (e) => {
@@ -171,13 +175,8 @@ export function initBattle() {
       defenceZonesArr.push(input.dataset.battle_zone_defence_input);
     });
 
-    // console.log(attackZonesArr);
-    // console.log(defenceZonesArr);
-
     gameState.battle.playerAttack.push(...attackZonesArr);
     gameState.battle.playerDefend.push(...defenceZonesArr);
-    // console.log(gameState.battle.playerAttack);
-    // console.log(gameState.battle.playerDefend);
 
     chooseEnemyAttackZones();
     chooseEnemyDefendZones();
@@ -222,21 +221,9 @@ export function initBattle() {
 
   const battleLogEl = document.querySelector('[data-battle_log]');
 
-  // chooseEnemyAttackZones();
-  // chooseEnemyDefendZones();
-
   function calculateResults() {
-    // playerAttackResults();
-    // enemyAttackResults();
-
     attackResults('player');
     attackResults('enemy');
-    // playerDefendResults();
-
-    // console.log(gameState.battle.playerAttack);
-    // console.log(gameState.battle.playerDefend);
-    // console.log(gameState.battle.enemyAttack);
-    // console.log(gameState.battle.enemyDefend);
   }
 
   function attackResults(character) {
@@ -281,7 +268,7 @@ export function initBattle() {
         damage: damage,
         isBlocked: false,
         attackingCharacterSpan: attackingCharacterSpan,
-        defendingCharacterSpan: attackingCharacterSpan,
+        defendingCharacterSpan: defendingCharacterSpan,
         characterAttack: characterAttack,
         characterDefend: characterDefend,
       };
@@ -386,6 +373,8 @@ export function initBattle() {
     const attackZoneCapitalized =
       attackZone[0].toUpperCase() + attackZone.slice(1);
 
+    console.log(attackingCharacterSpan, defendingCharacterSpan);
+
     return `
             <span class="battle__log-item-${attackingCharacterSpan} battle__log-item-span" data-battle_log_character_span>${attackerName}</span>
             attacked
@@ -403,47 +392,94 @@ export function initBattle() {
   }
 
   calculateResults();
+
+  function showResultsPopup(result) {
+    const resultsPopup = document.querySelector('[data-popup="results"]');
+    const resultsPopupTitle = document.querySelector('[data-popup__title]');
+
+    const imgIcon = document.createElement('img');
+    imgIcon.classList.add('popup__results-icon');
+
+    if (result === 'win') {
+      imgIcon.src = cupAwarIconUrl;
+      resultsPopupTitle.textContent = 'Congratulations with your win!';
+      resultsPopupTitle.append(imgIcon);
+      gameState.player.wins = gameState.player.wins + 1;
+      showPopup('[data-popup="results"]');
+    } else {
+      imgIcon.src = loseIconUrl;
+      resultsPopupTitle.textContent = 'Maybe next time';
+      resultsPopupTitle.append(imgIcon);
+      gameState.player.loses = gameState.player.loses + 1;
+      showPopup('[data-popup="results"]');
+    }
+  }
+
+  function updateBattleScreen() {
+    const characterAvatarImg = document.querySelector(
+      '[data-battle_character_avatar_img]',
+    );
+    const characterName = document.querySelector(
+      '[data-battle_character_name]',
+    );
+    const characterHealth = document.querySelector(
+      '[data-battle_character_current_health]',
+    );
+    const characterTotalHealth = document.querySelector(
+      '[data-battle_character_total_health]',
+    );
+
+    const characterHealthBg = document.querySelector('[data-avatar_health_bg]');
+    const enemyHealthBg = document.querySelector('[data-enemy_health_bg]');
+
+    characterAvatarImg.src = gameState.player.avatar;
+    characterName.textContent = gameState.player.name;
+
+    if (gameState.player.health > 0) {
+      characterHealth.textContent = gameState.player.health;
+      characterHealthBg.style.width = `${
+        (gameState.player.health * 100) / gameState.player.maxHealth
+      }%`;
+    } else {
+      characterHealth.textContent = 0;
+      characterHealthBg.style.width = `0%`;
+
+      showResultsPopup('lose');
+    }
+
+    characterTotalHealth.textContent = gameState.player.maxHealth;
+
+    const enemyAvatarImg = document.querySelector(
+      '[data-battle_enemy_avatar_img]',
+    );
+    const enemyName = document.querySelector('[data-battle_enemy_name]');
+    const enemyCurrentHealth = document.querySelector(
+      '[data-battle_enemy_current_health]',
+    );
+    const enemyTotalHealth = document.querySelector(
+      '[data-battle_enemy_total_health]',
+    );
+
+    enemyAvatarImg.src = gameState.enemy.avatar;
+    enemyName.textContent = gameState.enemy.name;
+
+    if (gameState.enemy.health > 0) {
+      enemyCurrentHealth.textContent = gameState.enemy.health;
+      enemyHealthBg.style.width = `${
+        (gameState.enemy.health * 100) / gameState.enemy.maxHealth
+      }%`;
+    } else {
+      enemyCurrentHealth.textContent = 0;
+      enemyHealthBg.style.width = `0%`;
+
+      showResultsPopup('win');
+    }
+
+    enemyTotalHealth.textContent = gameState.enemy.maxHealth;
+  }
 }
 
-export function updateBattleScreen() {
-  const characterAvatarImg = document.querySelector(
-    '[data-battle_character_avatar_img]',
-  );
-  const characterName = document.querySelector('[data-battle_character_name]');
-  const characterHealth = document.querySelector(
-    '[data-battle_character_current_health]',
-  );
-  const characterTotalHealth = document.querySelector(
-    '[data-battle_character_total_health]',
-  );
-
-  const characterHealthBg = document.querySelector('[data-avatar_health_bg]');
-  const enemyHealthBg = document.querySelector('[data-enemy_health_bg]');
-
-  characterAvatarImg.src = gameState.player.avatar;
-  characterName.textContent = gameState.player.name;
-  characterHealth.textContent = gameState.player.health;
-  characterTotalHealth.textContent = gameState.player.maxHealth;
-  characterHealthBg.style.width = `${
-    (gameState.player.health * 100) / gameState.player.maxHealth
-  }%`;
-
-  const enemyAvatarImg = document.querySelector(
-    '[data-battle_enemy_avatar_img]',
-  );
-  const enemyName = document.querySelector('[data-battle_enemy_name]');
-  const enemyCurrentHealth = document.querySelector(
-    '[data-battle_enemy_current_health]',
-  );
-  const enemyTotalHealth = document.querySelector(
-    '[data-battle_enemy_total_health]',
-  );
-
-  enemyAvatarImg.src = gameState.enemy.avatar;
-  enemyName.textContent = gameState.enemy.name;
-  enemyCurrentHealth.textContent = gameState.enemy.health;
-  enemyTotalHealth.textContent = gameState.enemy.maxHealth;
-  enemyHealthBg.style.width = `${
-    (gameState.enemy.health * 100) / gameState.enemy.maxHealth
-  }%`;
+export function cleanBattleLogsHTML() {
+  const battleLogEl = document.querySelector('[data-battle_log]');
+  battleLogEl.textContent = '';
 }

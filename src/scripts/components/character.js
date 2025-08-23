@@ -19,6 +19,8 @@ let editContainerHandler = null;
 let characterAvatarBtnHandler = null;
 
 export function initCharacter() {
+  const popupParent = document.querySelector('[data-popup="character_change"]');
+
   const editContainer = document.querySelector(
     '[data-character_edit_container]',
   );
@@ -69,11 +71,11 @@ export function initCharacter() {
   };
 
   editContainerHandler = (e) => {
-    showPopup();
+    showPopup('[data-popup="character_change"]');
   };
 
   characterAvatarBtnHandler = (e) => {
-    showPopup();
+    showPopup('[data-popup="character_change"]');
   };
 
   characterAvatar.addEventListener(

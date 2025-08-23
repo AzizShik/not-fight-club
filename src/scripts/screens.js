@@ -98,7 +98,7 @@ export function initScreens() {
   });
 }
 
-function switchScreen(name, screens) {
+export function switchScreen(name, screens) {
   const tollbarPageTitle = document.querySelector('[data-page_title]');
 
   Object.values(screens).forEach((s) => s.classList.remove('active'));

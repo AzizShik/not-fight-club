@@ -6,22 +6,23 @@ import aragornAvatarImg from '../../assets/images/character_aragorn.jpg';
 import legolasAvatarImg from '../../assets/images/character_legolas.jpg';
 import { saveGameState } from '../storage';
 import { initCharacter } from './character';
+import { initBattle, cleanBattleLogsHTML } from './battle';
+import { switchScreen } from '../screens';
 
 let popupClickHandler = null;
 let frodoClickHandler = null;
 let gandalfAvatarClickHandler = null;
 let aragornAvatarClickHandler = null;
 let legolasAvatarClickHandler = null;
+let newFightResultsBtnHandler = null;
+let changeCharacterResultsBtnHandler = null;
 
-export function showPopup() {
+export function showPopup(parentElement) {
   const body = document.querySelector('body');
-  const popup = document.querySelector('[data-popup]');
-  const popupContainer = document.querySelector('[data-popup_container]');
+  const popup = document.querySelector(parentElement);
+  const popupContainer = popup.querySelector('[data-popup_container]');
 
-  const popupShowAnimation = [
-    { opacity: '0', transform: 'translateX(-100%)' },
-    { opacity: '1', transform: 'translateX(0%)' },
-  ];
+  const popupShowAnimation = [{ opacity: '0' }, { opacity: '1' }];
 
   const popupTiming = {
     duration: 400,
@@ -56,11 +57,23 @@ export function showPopup() {
   popupClickHandler = (e) => {
     const el = e.target;
     if (!el.closest('.popup__container')) {
-      closePopup();
+      closePopup(parentElement);
+      if (parentElement === '[data-popup="results"]') {
+        gameState.player.health = gameState.player.maxHealth;
+        initBattle();
+        cleanBattleLogsHTML();
+        saveGameState();
+      }
     }
 
     if (el.closest('.popup__close')) {
-      closePopup();
+      closePopup(parentElement);
+      if (parentElement === '[data-popup="results"]') {
+        gameState.player.health = gameState.player.maxHealth;
+        initBattle();
+        cleanBattleLogsHTML();
+        saveGameState();
+      }
     }
   };
 
@@ -97,17 +110,70 @@ export function showPopup() {
   aragornAvatar.addEventListener('click', aragornAvatarClickHandler);
 
   legolasAvatar.addEventListener('click', legolasAvatarClickHandler);
+
+  // RESULTS POPUP
+  const newFightResultsBtn = document.querySelector(
+    '[data-popup_results_btn_fight]',
+  );
+  const changeCharacterResultsBtn = document.querySelector(
+    '[data-popup_results_btn_character]',
+  );
+
+  if (newFightResultsBtnHandler) {
+    newFightResultsBtn.removeEventListener('click', newFightResultsBtnHandler);
+  }
+
+  if (changeCharacterResultsBtnHandler) {
+    changeCharacterResultsBtn.removeEventListener(
+      'click',
+      changeCharacterResultsBtnHandler,
+    );
+  }
+
+  const registerScreenEl = document.querySelector('[data-screen="register"]');
+  const homeScreenEl = document.querySelector('[data-screen="home"]');
+  const characterScreenEl = document.querySelector('[data-screen="character"]');
+  const settingsScreenEl = document.querySelector('[data-screen="settings"]');
+  const battleScreenEl = document.querySelector('[data-screen="battle"]');
+
+  const screens = {
+    register: registerScreenEl,
+    home: homeScreenEl,
+    character: characterScreenEl,
+    settings: settingsScreenEl,
+    battle: battleScreenEl,
+  };
+
+  changeCharacterResultsBtnHandler = (e) => {
+    gameState.player.health = gameState.player.maxHealth;
+    closePopup('[data-popup="results"');
+    initBattle();
+    cleanBattleLogsHTML();
+    initCharacter();
+    switchScreen('character', screens);
+    saveGameState();
+  };
+
+  newFightResultsBtnHandler = (e) => {
+    gameState.player.health = gameState.player.maxHealth;
+    closePopup('[data-popup="results"');
+    initBattle();
+    cleanBattleLogsHTML();
+    saveGameState();
+  };
+
+  newFightResultsBtn.addEventListener('click', newFightResultsBtnHandler);
+  changeCharacterResultsBtn.addEventListener(
+    'click',
+    changeCharacterResultsBtnHandler,
+  );
 }
 
-export function closePopup() {
-  console.log('works');
-  const popup = document.querySelector('[data-popup]');
-  const popupContainer = document.querySelector('[data-popup_container]');
+export function closePopup(parentElement) {
+  const popup = document.querySelector(parentElement);
+  const popupContainer = popup.querySelector('[data-popup_container]');
 
-  const popupShowAnimation = [
-    { opacity: '1', transform: 'translateX(0%)' },
-    { opacity: '0', transform: 'translateX(-100%)' },
-  ];
+  const popupShowAnimation = [{ opacity: '1' }, { opacity: '0' }];
 
   const popupTiming = {
     duration: 400,
