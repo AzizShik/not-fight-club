@@ -104,8 +104,19 @@
   text-decoration: underline;
 }
 
+.character__results-icon {
+  width: 48px;
+  height: 48px;
+}
+
 .character__results-loses {
   color: $loses-color;
+}
+
+.character__results-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .character__results-loses-num {

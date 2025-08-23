@@ -297,3 +297,62 @@
 .battle__log-item-defend {
   color: $defence-color;
 }
+
+.battle__log::-webkit-scrollbar {
+  width: 16px;
+  background: linear-gradient(135deg, #1a1a16 0%, #29221d 100%);
+  border-left: 2px solid #5d4b2e;
+}
+
+.battle__log:-webkit-scrollbar-track {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><rect fill="%2329221d" width="10" height="10"/><circle fill="%233d3326" cx="5" cy="5" r="2"/></svg>');
+  border-radius: 2px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 5px rgba(139, 69, 19, 0.3);
+}
+
+.battle__log::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #c8a951 0%, #8b4513 50%, #5d4b2e 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%235d4b2e" d="M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 Z"/><circle fill="%23c8a951" cx="10" cy="10" r="3"/></svg>')
+      center/contain no-repeat;
+  border: 2px solid #8b4513;
+  border-radius: 8px;
+  min-height: 60px;
+  box-shadow: 0 0 15px rgba(200, 169, 81, 0.4),
+    inset 0 0 20px rgba(139, 69, 19, 0.6), 0 0 0 1px #5d4b2e;
+  position: relative;
+}
+
+.battle__log::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f1c40f 0%, #a0522d 50%, #6d5c47 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%236d5c47" d="M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 Z"/><circle fill="%23f1c40f" cx="10" cy="10" r="3"/></svg>')
+      center/contain no-repeat;
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.6),
+    inset 0 0 25px rgba(160, 82, 45, 0.8), 0 0 0 1px #8b4513;
+}
+
+.battle__log::-webkit-scrollbar-button {
+  background: linear-gradient(135deg, #5d4b2e 0%, #3d3326 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><polygon fill="%23c8a951" points="5,2 8,7 2,7"/></svg>')
+      center/40% no-repeat;
+  border: 1px solid #8b4513;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 16px;
+}
+
+.battle__log::-webkit-scrollbar-button:end {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><polygon fill="%23c8a951" points="2,3 8,3 5,8"/></svg>');
+}
+
+@keyframes ring-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(200, 169, 81, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(200, 169, 81, 0.8);
+  }
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  animation: ring-glow 3s ease-in-out infinite;
+}

@@ -11,12 +11,36 @@ import cupAwarIconUrl from '../../assets/icons/cup.svg';
 import loseIconUrl from '../../assets/icons/lose.svg';
 
 export function initBattle() {
-  // if (gameState.enemy.name) {
-  //   //
-  // }
+  const battleLogEl = document.querySelector('[data-battle_log]');
 
-  const randomIndex = Math.floor(Math.random() * gameState.enemies.length);
-  gameState.enemy = JSON.parse(JSON.stringify(gameState.enemies[randomIndex]));
+  if (gameState.enemy.name) {
+    console.log('battleLog');
+
+    console.log(gameState.battle.log);
+    gameState.battle.log.forEach((obj) => {
+      if (obj.isCrit && obj.isBlocked) {
+        createAttackLog(obj);
+      } else if (!obj.isBlocked) {
+        createAttackLog(obj);
+      } else {
+        createDefendLog(obj);
+      }
+    });
+
+    // if (isCritical && gameState.battle[characterDefendStr].includes(attack)) {
+    //   createAttackLog(attackObj);
+    // } else if (!gameState.battle[characterDefendStr].includes(attack)) {
+    //   createAttackLog(attackObj);
+    // } else {
+    //   createDefendLog(attackObj);
+    // }
+  } else {
+    const randomIndex = Math.floor(Math.random() * gameState.enemies.length);
+    gameState.enemy = JSON.parse(
+      JSON.stringify(gameState.enemies[randomIndex]),
+    );
+    saveGameState();
+  }
 
   updateBattleScreen();
 
@@ -43,7 +67,6 @@ export function initBattle() {
   }
 
   resetAllCheboxes();
-  cleanBattleLogsHTML();
 
   if (battleZoneAttackClickHandler) {
     battleZoneAttack.removeEventListener('click', battleZoneAttackClickHandler);
@@ -219,8 +242,6 @@ export function initBattle() {
     }
   }
 
-  const battleLogEl = document.querySelector('[data-battle_log]');
-
   function calculateResults() {
     attackResults('player');
     attackResults('enemy');
@@ -239,9 +260,9 @@ export function initBattle() {
     }
 
     const characterAttackStr = characterAttack + 'Attack';
+    const characterDefendStr = characterDefend + 'Defend';
 
     const attackArr = gameState.battle[characterAttackStr];
-    console.log(attackArr);
     attackArr.forEach((attack) => {
       const isCritical = isAttackCritical();
       const damage = isCritical
@@ -266,21 +287,24 @@ export function initBattle() {
         attackZone: attack,
         isCrit: isCritical,
         damage: damage,
-        isBlocked: false,
+        isBlocked: gameState.battle[characterDefendStr].includes(attack),
         attackingCharacterSpan: attackingCharacterSpan,
         defendingCharacterSpan: defendingCharacterSpan,
         characterAttack: characterAttack,
         characterDefend: characterDefend,
       };
 
-      if (isCritical && gameState.battle.enemyDefend.includes(attack)) {
-        attackObj.isBlocked = true;
+      gameState.battle.log.push(attackObj);
+
+      if (attackObj.isCrit && attackObj.isBlocked) {
         createAttackLog(attackObj);
-      } else if (!gameState.battle.enemyDefend.includes(attack)) {
+      } else if (!attackObj.isBlocked) {
         createAttackLog(attackObj);
       } else {
         createDefendLog(attackObj);
       }
+
+      updateBattleHealth(attackObj.characterDefend, damage);
     });
   }
 
@@ -290,8 +314,6 @@ export function initBattle() {
     const logItem = document.createElement('div');
     logItem.classList.add('battle__log-item');
     logItem.innerHTML = attackItemLogHTML(attackObj);
-
-    updateBattleHealth(characterDefend, damage);
 
     battleLogEl.append(logItem);
     battleLogEl.scrollTop = battleLogEl.scrollHeight;
@@ -373,8 +395,6 @@ export function initBattle() {
     const attackZoneCapitalized =
       attackZone[0].toUpperCase() + attackZone.slice(1);
 
-    console.log(attackingCharacterSpan, defendingCharacterSpan);
-
     return `
             <span class="battle__log-item-${attackingCharacterSpan} battle__log-item-span" data-battle_log_character_span>${attackerName}</span>
             attacked
@@ -404,15 +424,25 @@ export function initBattle() {
       imgIcon.src = cupAwarIconUrl;
       resultsPopupTitle.textContent = 'Congratulations with your win!';
       resultsPopupTitle.append(imgIcon);
-      gameState.player.wins = gameState.player.wins + 1;
+      addWinToPlayer();
       showPopup('[data-popup="results"]');
     } else {
       imgIcon.src = loseIconUrl;
       resultsPopupTitle.textContent = 'Maybe next time';
       resultsPopupTitle.append(imgIcon);
-      gameState.player.loses = gameState.player.loses + 1;
+      addLoseToPlayer();
       showPopup('[data-popup="results"]');
     }
+  }
+
+  function addLoseToPlayer() {
+    gameState.player.loses = gameState.player.loses + 1;
+    saveGameState();
+  }
+
+  function addWinToPlayer() {
+    gameState.player.wins = gameState.player.wins + 1;
+    saveGameState();
   }
 
   function updateBattleScreen() {
@@ -479,7 +509,11 @@ export function initBattle() {
   }
 }
 
-export function cleanBattleLogsHTML() {
+export function cleanBattleLog() {
+  gameState.enemy = {};
+  gameState.battle.log = [];
   const battleLogEl = document.querySelector('[data-battle_log]');
   battleLogEl.textContent = '';
+
+  saveGameState();
 }

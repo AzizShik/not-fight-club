@@ -6,7 +6,7 @@ import aragornAvatarImg from '../../assets/images/character_aragorn.jpg';
 import legolasAvatarImg from '../../assets/images/character_legolas.jpg';
 import { saveGameState } from '../storage';
 import { initCharacter } from './character';
-import { initBattle, cleanBattleLogsHTML } from './battle';
+import { initBattle, cleanBattleLog } from './battle';
 import { switchScreen } from '../screens';
 
 let popupClickHandler = null;
@@ -61,7 +61,7 @@ export function showPopup(parentElement) {
       if (parentElement === '[data-popup="results"]') {
         gameState.player.health = gameState.player.maxHealth;
         initBattle();
-        cleanBattleLogsHTML();
+        cleanBattleLog();
         saveGameState();
       }
     }
@@ -71,7 +71,7 @@ export function showPopup(parentElement) {
       if (parentElement === '[data-popup="results"]') {
         gameState.player.health = gameState.player.maxHealth;
         initBattle();
-        cleanBattleLogsHTML();
+        cleanBattleLog();
         saveGameState();
       }
     }
@@ -147,8 +147,8 @@ export function showPopup(parentElement) {
   changeCharacterResultsBtnHandler = (e) => {
     gameState.player.health = gameState.player.maxHealth;
     closePopup('[data-popup="results"');
+    cleanBattleLog();
     initBattle();
-    cleanBattleLogsHTML();
     initCharacter();
     switchScreen('character', screens);
     saveGameState();
@@ -157,8 +157,8 @@ export function showPopup(parentElement) {
   newFightResultsBtnHandler = (e) => {
     gameState.player.health = gameState.player.maxHealth;
     closePopup('[data-popup="results"');
+    cleanBattleLog();
     initBattle();
-    cleanBattleLogsHTML();
     saveGameState();
   };
 
