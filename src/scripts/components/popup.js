@@ -7,7 +7,8 @@ import legolasAvatarImg from '../../assets/images/character_legolas.jpg';
 import { saveGameState } from '../storage';
 import { initCharacter } from './character';
 import { initBattle, cleanBattleLog } from './battle';
-import { switchScreen } from '../screens';
+import { addToScreen, showScreen, switchScreen } from '../screens';
+import { initToolbar } from './toolbar';
 
 let popupClickHandler = null;
 let frodoClickHandler = null;
@@ -17,7 +18,7 @@ let legolasAvatarClickHandler = null;
 let newFightResultsBtnHandler = null;
 let changeCharacterResultsBtnHandler = null;
 
-export function showPopup(parentElement) {
+export async function showPopup(parentElement) {
   const body = document.querySelector('body');
   const popup = document.querySelector(parentElement);
   const popupContainer = popup.querySelector('[data-popup_container]');
@@ -41,16 +42,16 @@ export function showPopup(parentElement) {
   if (popupClickHandler) {
     popup.removeEventListener('click', popupClickHandler);
   }
-  if (frodoClickHandler) {
+  if (frodoClickHandler && frodoAvatar) {
     frodoAvatar.removeEventListener('click', frodoClickHandler);
   }
-  if (gandalfAvatarClickHandler) {
+  if (gandalfAvatarClickHandler && gandalfAvatar) {
     gandalfAvatar.removeEventListener('click', gandalfAvatarClickHandler);
   }
-  if (aragornAvatarClickHandler) {
+  if (aragornAvatarClickHandler && aragornAvatar) {
     aragornAvatar.removeEventListener('click', aragornAvatarClickHandler);
   }
-  if (legolasAvatarClickHandler) {
+  if (legolasAvatarClickHandler && legolasAvatar) {
     legolasAvatar.removeEventListener('click', legolasAvatarClickHandler);
   }
 
@@ -58,20 +59,20 @@ export function showPopup(parentElement) {
     const el = e.target;
     if (!el.closest('.popup__container')) {
       closePopup(parentElement);
+
       if (parentElement === '[data-popup="results"]') {
-        gameState.player.health = gameState.player.maxHealth;
-        initBattle();
         cleanBattleLog();
+        initBattle();
         saveGameState();
       }
     }
 
     if (el.closest('.popup__close')) {
       closePopup(parentElement);
+
       if (parentElement === '[data-popup="results"]') {
-        gameState.player.health = gameState.player.maxHealth;
-        initBattle();
         cleanBattleLog();
+        initBattle();
         saveGameState();
       }
     }
@@ -81,92 +82,97 @@ export function showPopup(parentElement) {
     gameState.player.avatar = frodoAvatarImg;
     initCharacter();
     saveGameState();
+    closePopup('[data-popup="character_change"]');
   };
 
   gandalfAvatarClickHandler = (e) => {
     gameState.player.avatar = gandalfAvatarImg;
     initCharacter();
     saveGameState();
+    closePopup('[data-popup="character_change"]');
   };
 
   aragornAvatarClickHandler = (e) => {
     gameState.player.avatar = aragornAvatarImg;
     initCharacter();
     saveGameState();
+    closePopup('[data-popup="character_change"]');
   };
 
   legolasAvatarClickHandler = (e) => {
     gameState.player.avatar = legolasAvatarImg;
     initCharacter();
     saveGameState();
+    closePopup('[data-popup="character_change"]');
   };
 
   popup.addEventListener('click', popupClickHandler);
 
-  frodoAvatar.addEventListener('click', frodoClickHandler);
-
-  gandalfAvatar.addEventListener('click', gandalfAvatarClickHandler);
-
-  aragornAvatar.addEventListener('click', aragornAvatarClickHandler);
-
-  legolasAvatar.addEventListener('click', legolasAvatarClickHandler);
+  if (frodoAvatar && gandalfAvatar && aragornAvatar && legolasAvatar) {
+    frodoAvatar.addEventListener('click', frodoClickHandler);
+    gandalfAvatar.addEventListener('click', gandalfAvatarClickHandler);
+    aragornAvatar.addEventListener('click', aragornAvatarClickHandler);
+    legolasAvatar.addEventListener('click', legolasAvatarClickHandler);
+  }
 
   // RESULTS POPUP
   const newFightResultsBtn = document.querySelector(
     '[data-popup_results_btn_fight]',
   );
+
   const changeCharacterResultsBtn = document.querySelector(
     '[data-popup_results_btn_character]',
   );
 
-  if (newFightResultsBtnHandler) {
+  if (newFightResultsBtnHandler && newFightResultsBtn) {
     newFightResultsBtn.removeEventListener('click', newFightResultsBtnHandler);
   }
 
-  if (changeCharacterResultsBtnHandler) {
+  if (changeCharacterResultsBtnHandler && changeCharacterResultsBtn) {
     changeCharacterResultsBtn.removeEventListener(
       'click',
       changeCharacterResultsBtnHandler,
     );
   }
 
-  const registerScreenEl = document.querySelector('[data-screen="register"]');
-  const homeScreenEl = document.querySelector('[data-screen="home"]');
-  const characterScreenEl = document.querySelector('[data-screen="character"]');
-  const settingsScreenEl = document.querySelector('[data-screen="settings"]');
-  const battleScreenEl = document.querySelector('[data-screen="battle"]');
+  // const registerScreenEl = document.querySelector('[data-screen="register"]');
+  // const homeScreenEl = document.querySelector('[data-screen="home"]');
+  // const characterScreenEl = document.querySelector('[data-screen="character"]');
+  // const settingsScreenEl = document.querySelector('[data-screen="settings"]');
+  // const battleScreenEl = document.querySelector('[data-screen="battle"]');
 
-  const screens = {
-    register: registerScreenEl,
-    home: homeScreenEl,
-    character: characterScreenEl,
-    settings: settingsScreenEl,
-    battle: battleScreenEl,
-  };
+  // const screens = {
+  //   register: registerScreenEl,
+  //   home: homeScreenEl,
+  //   character: characterScreenEl,
+  //   settings: settingsScreenEl,
+  //   battle: battleScreenEl,
+  // };
 
-  changeCharacterResultsBtnHandler = (e) => {
-    gameState.player.health = gameState.player.maxHealth;
+  changeCharacterResultsBtnHandler = async (e) => {
     closePopup('[data-popup="results"');
     cleanBattleLog();
     initBattle();
+    await showScreen('./views/character.html');
+    await addToScreen('./views/toolbar.html');
     initCharacter();
-    switchScreen('character', screens);
     saveGameState();
   };
 
   newFightResultsBtnHandler = (e) => {
-    gameState.player.health = gameState.player.maxHealth;
     closePopup('[data-popup="results"');
     cleanBattleLog();
     initBattle();
     saveGameState();
   };
 
-  newFightResultsBtn.addEventListener('click', newFightResultsBtnHandler);
-  changeCharacterResultsBtn.addEventListener(
-    'click',
-    changeCharacterResultsBtnHandler,
-  );
+  if (newFightResultsBtn && changeCharacterResultsBtn) {
+    newFightResultsBtn.addEventListener('click', newFightResultsBtnHandler);
+    changeCharacterResultsBtn.addEventListener(
+      'click',
+      changeCharacterResultsBtnHandler,
+    );
+  }
 }
 
 export function closePopup(parentElement) {
@@ -181,8 +187,18 @@ export function closePopup(parentElement) {
   };
 
   const animate = popupContainer.animate(popupShowAnimation, popupTiming);
+  const isCharacterView = document.querySelector(
+    '[data-popup="character_change"]',
+  );
 
   animate.addEventListener('finish', () => {
     popup.classList.remove('popup--active');
+    popup.remove();
+
+    if (isCharacterView) {
+      initCharacter();
+    }
+
+    initToolbar();
   });
 }

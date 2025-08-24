@@ -7,16 +7,16 @@ let battleZoneDefenceClickHandler = null;
 
 let battleAttackBtnHandler = null;
 
+let isResultsPopupShown = false;
+
 import cupAwarIconUrl from '../../assets/icons/cup.svg';
 import loseIconUrl from '../../assets/icons/lose.svg';
+import { addToScreen } from '../screens';
 
 export function initBattle() {
   const battleLogEl = document.querySelector('[data-battle_log]');
 
   if (gameState.enemy.name) {
-    console.log('battleLog');
-
-    console.log(gameState.battle.log);
     gameState.battle.log.forEach((obj) => {
       if (obj.isCrit && obj.isBlocked) {
         createAttackLog(obj);
@@ -244,7 +244,9 @@ export function initBattle() {
 
   function calculateResults() {
     attackResults('player');
-    attackResults('enemy');
+    if (gameState.enemy.health >= 1) {
+      attackResults('enemy');
+    }
   }
 
   function attackResults(character) {
@@ -401,7 +403,7 @@ export function initBattle() {
             <span class="battle__log-item-${defendingCharacterSpan} battle__log-item-span" data-battle_log_enemy_span>${defenderName}</span>
             to
             <span class="battle__log-item-zone battle__log-item-span" data-battle_log_zone_span>${attackZoneCapitalized}</span>
-            but <span class="battle__log-item-enemy battle__log-item-span" data-battle_log_enemy_span>${defenderName}</span>
+            but <span class="battle__log-item-${defendingCharacterSpan} battle__log-item-span" data-battle_log_enemy_span>${defenderName}</span>
             was able to <span class="battle__log-item-defend battle__log-item-span" data-battle_log_protect_span>protect</span>
             his  <span class="battle__log-item-zone battle__log-item-span" data-battle_log_zone_span>${attackZoneCapitalized}</span>
     `;
@@ -413,7 +415,17 @@ export function initBattle() {
 
   calculateResults();
 
-  function showResultsPopup(result) {
+  async function showResultsPopup(result) {
+    console.log(battleLogEl.scrollHeight);
+    const savedScrollTop = battleLogEl.scrollTop;
+
+    await addToScreen('./views/popup_results.html');
+
+    const newBattleLogEl = document.querySelector('[data-battle_log]');
+    if (newBattleLogEl) {
+      newBattleLogEl.scrollTop = savedScrollTop;
+    }
+
     const resultsPopup = document.querySelector('[data-popup="results"]');
     const resultsPopupTitle = document.querySelector('[data-popup__title]');
 
@@ -465,7 +477,7 @@ export function initBattle() {
     characterAvatarImg.src = gameState.player.avatar;
     characterName.textContent = gameState.player.name;
 
-    if (gameState.player.health > 0) {
+    if (gameState.player.health >= 1) {
       characterHealth.textContent = gameState.player.health;
       characterHealthBg.style.width = `${
         (gameState.player.health * 100) / gameState.player.maxHealth
@@ -474,7 +486,11 @@ export function initBattle() {
       characterHealth.textContent = 0;
       characterHealthBg.style.width = `0%`;
 
-      showResultsPopup('lose');
+      if (!isResultsPopupShown) {
+        isResultsPopupShown = true;
+
+        showResultsPopup('lose');
+      }
     }
 
     characterTotalHealth.textContent = gameState.player.maxHealth;
@@ -502,7 +518,11 @@ export function initBattle() {
       enemyCurrentHealth.textContent = 0;
       enemyHealthBg.style.width = `0%`;
 
-      showResultsPopup('win');
+      if (!isResultsPopupShown) {
+        isResultsPopupShown = true;
+
+        showResultsPopup('win');
+      }
     }
 
     enemyTotalHealth.textContent = gameState.enemy.maxHealth;
@@ -510,6 +530,8 @@ export function initBattle() {
 }
 
 export function cleanBattleLog() {
+  isResultsPopupShown = false;
+  gameState.player.health = gameState.player.maxHealth;
   gameState.enemy = {};
   gameState.battle.log = [];
   const battleLogEl = document.querySelector('[data-battle_log]');

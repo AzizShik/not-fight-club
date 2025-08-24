@@ -9,103 +9,31 @@ import frodoAvatarImg from '../assets/images/character_frodo.jpg';
 import gandalfAvatarImg from '../assets/images/character_gandalf.jpg';
 import aragornAvatarImg from '../assets/images/character_aragorn.jpg';
 import legolasAvatarImg from '../assets/images/character_legolas.jpg';
+import { changeWindowHash, handleLocation, router } from './router';
+import { initRegister } from './components/register';
+import { initToolbar } from './components/toolbar';
 
-export function initScreens() {
+export async function initScreens() {
   loadGameState();
-
-  const registerScreenEl = document.querySelector('[data-screen="register"]');
-  const homeScreenEl = document.querySelector('[data-screen="home"]');
-  const characterScreenEl = document.querySelector('[data-screen="character"]');
-  const settingsScreenEl = document.querySelector('[data-screen="settings"]');
-  const battleScreenEl = document.querySelector('[data-screen="battle"]');
-
-  const toolbarNavEl = document.querySelector('[data-screen="toolbar"]');
-  const tollbarPageTitle = document.querySelector('[data-page_title]');
-
-  const screens = {
-    register: registerScreenEl,
-    home: homeScreenEl,
-    character: characterScreenEl,
-    settings: settingsScreenEl,
-    battle: battleScreenEl,
-  };
-
-  const registerBtn = document.querySelector('[data-register_btn]');
-  const registerInput = document.querySelector('[data-register_input]');
-  const homeTitleName = document.querySelector('[data-home_title_name]');
-
-  const toolbarHomeBtn = document.querySelector('[data-page_btn="home"]');
-  const toolbarCharacterBtn = document.querySelector(
-    '[data-page_btn="character"]',
-  );
-  const toolbarSettingsBtn = document.querySelector(
-    '[data-page_btn="settings"]',
-  );
-
-  const battleBtn = document.querySelector('[data-page_btn="battle"]');
-
   if (gameState.player.name) {
-    homeScreenEl.classList.add('active');
-    homeTitleName.textContent = gameState.player.name;
-    toolbarNavEl.classList.add('active');
+    await showScreen('./views/home.html');
+    await addToScreen('./views/toolbar.html');
+    await initToolbar();
+    await initHome();
+    handleLocation();
   } else {
-    registerScreenEl.classList.add('active');
     gameState.player.avatar = frodoAvatarImg;
-    toolbarNavEl.classList.remove('active');
+    await showScreen('./views/register.html');
+    await initRegister();
   }
-
-  registerBtn.addEventListener('click', () => {
-    const inputName = registerInput.value.trim();
-    gameState.player.name = inputName;
-
-    toolbarNavEl.classList.add('active');
-
-    saveGameState();
-    initHome();
-    switchScreen('home', screens);
-  });
-
-  registerInput.addEventListener('input', (e) => {
-    if (e.target.value.length >= 1) {
-      registerBtn.disabled = false;
-    } else {
-      registerBtn.disabled = true;
-    }
-  });
-
-  toolbarHomeBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    switchScreen('home', screens);
-    initHome();
-  });
-
-  toolbarCharacterBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    switchScreen('character', screens);
-    initCharacter();
-  });
-
-  toolbarSettingsBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    switchScreen('settings', screens);
-    initSettings();
-  });
-
-  battleBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    switchScreen('battle', screens);
-    initBattle();
-  });
 }
 
-export function switchScreen(name, screens) {
-  const tollbarPageTitle = document.querySelector('[data-page_title]');
-
-  Object.values(screens).forEach((s) => s.classList.remove('active'));
-  screens[name].classList.add('active');
-  tollbarPageTitle.textContent = capitalazeFirstLetter(name);
+export async function showScreen(pathToView) {
+  const html = await fetch(pathToView).then((data) => data.text());
+  document.getElementById('root').innerHTML = html;
 }
 
-function capitalazeFirstLetter(str) {
-  return str[0].toUpperCase() + str.slice(1);
+export async function addToScreen(pathToView) {
+  const html = await fetch(pathToView).then((data) => data.text());
+  document.getElementById('root').innerHTML += html;
 }

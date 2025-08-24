@@ -5,6 +5,7 @@ import frodoAvatarImg from '../../assets/images/character_frodo.jpg';
 import gandalfAvatarImg from '../../assets/images/character_gandalf.jpg';
 import aragornAvatarImg from '../../assets/images/character_aragorn.jpg';
 import legolasAvatarImg from '../../assets/images/character_legolas.jpg';
+import { addToScreen } from '../screens';
 
 const avatars = {
   frodo: frodoAvatarImg,
@@ -42,6 +43,7 @@ export function initCharacter() {
   characterLoses.textContent = gameState.player.loses;
 
   const CONTAINER_ACTIVE_CLASS = 'character__avatar-edit-container--active';
+  editContainer.classList.remove(CONTAINER_ACTIVE_CLASS);
 
   if (characterAvatarMouseOverHandler) {
     characterAvatar.removeEventListener(
@@ -70,12 +72,14 @@ export function initCharacter() {
     editContainer.classList.remove(CONTAINER_ACTIVE_CLASS);
   };
 
-  editContainerHandler = (e) => {
-    showPopup('[data-popup="character_change"]');
+  editContainerHandler = async (e) => {
+    await addToScreen('./views/popup_character.html');
+    await showPopup('[data-popup="character_change"]');
   };
 
-  characterAvatarBtnHandler = (e) => {
-    showPopup('[data-popup="character_change"]');
+  characterAvatarBtnHandler = async (e) => {
+    await addToScreen('./views/popup_character.html');
+    await showPopup('[data-popup="character_change"]');
   };
 
   characterAvatar.addEventListener(

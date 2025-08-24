@@ -1,9 +1,6 @@
 @use '../common/variables.scss' as *;
 
 .toolbar {
-
-  display: none;
-
   position: absolute;
   z-index: 101;
   top: 0px;
