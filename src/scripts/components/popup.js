@@ -9,6 +9,7 @@ import { initCharacter } from './character';
 import { initBattle, cleanBattleLog } from './battle';
 import { addToScreen, showScreen, switchScreen } from '../screens';
 import { initToolbar } from './toolbar';
+import { addSoundsToButtons } from '../sounds';
 
 let popupClickHandler = null;
 let frodoClickHandler = null;

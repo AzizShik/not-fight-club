@@ -12,6 +12,7 @@ import legolasAvatarImg from '../assets/images/character_legolas.jpg';
 import { changeWindowHash, handleLocation, router } from './router';
 import { initRegister } from './components/register';
 import { initToolbar } from './components/toolbar';
+import { addSoundsToButtons } from './sounds';
 
 export async function initScreens() {
   loadGameState();
@@ -25,15 +26,18 @@ export async function initScreens() {
     gameState.player.avatar = frodoAvatarImg;
     await showScreen('./views/register.html');
     await initRegister();
+    changeWindowHash('/register');
   }
 }
 
 export async function showScreen(pathToView) {
   const html = await fetch(pathToView).then((data) => data.text());
   document.getElementById('root').innerHTML = html;
+  addSoundsToButtons(0.05);
 }
 
 export async function addToScreen(pathToView) {
   const html = await fetch(pathToView).then((data) => data.text());
   document.getElementById('root').innerHTML += html;
+  addSoundsToButtons(0.05);
 }

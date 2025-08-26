@@ -6,6 +6,7 @@ import gandalfAvatarImg from '../../assets/images/character_gandalf.jpg';
 import aragornAvatarImg from '../../assets/images/character_aragorn.jpg';
 import legolasAvatarImg from '../../assets/images/character_legolas.jpg';
 import { addToScreen } from '../screens';
+import { addSoundsToButtons } from '../sounds';
 
 const avatars = {
   frodo: frodoAvatarImg,

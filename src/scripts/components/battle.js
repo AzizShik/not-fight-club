@@ -12,6 +12,10 @@ let isResultsPopupShown = false;
 import cupAwarIconUrl from '../../assets/icons/cup.svg';
 import loseIconUrl from '../../assets/icons/lose.svg';
 import { addToScreen } from '../screens';
+import { createSound } from '../sounds';
+
+import importWinSoundUrl from '../../assets/sounds/win.mp3';
+import importLoseSoundUrl from '../../assets/sounds/lose.mp3';
 
 export function initBattle() {
   const battleLogEl = document.querySelector('[data-battle_log]');
@@ -26,19 +30,12 @@ export function initBattle() {
         createDefendLog(obj);
       }
     });
-
-    // if (isCritical && gameState.battle[characterDefendStr].includes(attack)) {
-    //   createAttackLog(attackObj);
-    // } else if (!gameState.battle[characterDefendStr].includes(attack)) {
-    //   createAttackLog(attackObj);
-    // } else {
-    //   createDefendLog(attackObj);
-    // }
   } else {
     const randomIndex = Math.floor(Math.random() * gameState.enemies.length);
     gameState.enemy = JSON.parse(
       JSON.stringify(gameState.enemies[randomIndex]),
     );
+
     saveGameState();
   }
 
@@ -438,12 +435,16 @@ export function initBattle() {
       resultsPopupTitle.append(imgIcon);
       addWinToPlayer();
       showPopup('[data-popup="results"]');
+      const winSound = createSound(importWinSoundUrl, 0.1);
+      winSound.play();
     } else {
       imgIcon.src = loseIconUrl;
       resultsPopupTitle.textContent = 'Maybe next time';
       resultsPopupTitle.append(imgIcon);
       addLoseToPlayer();
       showPopup('[data-popup="results"]');
+      const loseSound = createSound(importLoseSoundUrl, 0.1);
+      loseSound.play();
     }
   }
 

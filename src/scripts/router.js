@@ -4,11 +4,14 @@ import { initHome } from './components/home';
 import { initRegister } from './components/register';
 import { initSettings } from './components/settings';
 import { initToolbar } from './components/toolbar';
+import { initScreens } from './screens';
+import { addSoundsToButtons } from './sounds';
 import { capitalazeFirstLetter } from './utils/capitalaze';
 
 const routes = {
-  // '/register': '/views/register.html',
-  // '/home': '/views/home.html',
+  '/register': '/views/register.html',
+  '/index.html': '/views/home.html',
+  '/': '/views/home.html',
   '/home': '/views/home.html',
   '/character': '/views/character.html',
   '/settings': '/views/settings.html',
@@ -23,13 +26,34 @@ export const router = async (e) => {
   await handleLocation();
 };
 
-// export const changeWindowHash = (hash) => {
-//   window.history.pushState({}, '', hash);
-// };
+export const changeWindowHash = (hash) => {
+  window.history.pushState({}, '', hash);
+};
 
 export const handleLocation = async () => {
+  console.log('works!');
+
   const path = window.location.pathname;
-  const route = routes[path];
+  const route = routes[path] || '/home';
+
+  if (path === '/') {
+    changeWindowHash('/home');
+    initScreens();
+  }
+
+  if (path === '/index.html') {
+    changeWindowHash('/home');
+    initScreens();
+  }
+
+  if (!routes[path]) {
+    changeWindowHash('/home');
+    initScreens();
+  }
+
+  console.log(path);
+  console.log(route);
+
   const html = await fetch(route).then((data) => data.text());
   const toolBar = await fetch('./views/toolbar.html').then((data) =>
     data.text(),
@@ -39,17 +63,25 @@ export const handleLocation = async () => {
   document.getElementById('root').innerHTML += toolBar;
 
   const initialize = {
-    '/': initRegister,
+    '/': initHome,
+    '/index.html': initHome,
     '/home': initHome,
+    '/register': initRegister,
     '/character': initCharacter,
     '/settings': initSettings,
     '/battle': initBattle,
   };
 
-  const initFunc = initialize[path];
+  let initFunc = initialize[path];
 
-  initFunc();
+  if (!initFunc) {
+    initFunc = initHome;
+  } else {
+    initFunc();
+  }
+
   initToolbar();
+  addSoundsToButtons(0.05);
 };
 
 window.addEventListener('popstate', handleLocation);

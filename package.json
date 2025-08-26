@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack serve --open --mode development",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "dev": "cross-env NODE_ENV=development webpack serve --open",
+    "build": "cross-env NODE_ENV=production webpack",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.28.3",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.1",
     "cross-env": "^10.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",

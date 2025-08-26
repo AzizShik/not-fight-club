@@ -26,17 +26,7 @@ export const gameState = {
     enemyDefend: [],
     log: [],
   },
-  enemy: {
-    name: 'Spider',
-    avatar: enemySpiderAvatar,
-    health: 80,
-    maxHealth: 80,
-    attack: 12,
-    critChance: 0.25,
-    critMultiplier: 1.5,
-    attackZones: 2,
-    defendZones: 1,
-  },
+  enemy: {},
   enemies: [
     {
       name: 'Spider',
