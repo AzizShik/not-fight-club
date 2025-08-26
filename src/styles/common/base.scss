@@ -140,6 +140,24 @@ body {
   height: 24px;
 }
 
+.avatar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  color: $bg-theme;
+  font-size: 18px;
+}
+
+.avatar-list__item {
+  padding-left: 10px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid $bg-theme;
+}
+.avatar-list__item:last-child {
+  border-bottom: none;
+}
+
 @media (hover: hover) {
   .btn:hover:not(:disabled) {
     box-shadow: 0 10px 20px rgba($color: $color-theme, $alpha: 0.2),

@@ -14,10 +14,6 @@ import {
   setUserInteracted,
 } from './sounds';
 
-// initRegister();
-// initCharacter();
-// initSettings();
-
 initBackgroundMusic();
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -27,14 +23,9 @@ window.addEventListener('DOMContentLoaded', () => {
   function enableSounds() {
     setUserInteracted();
     document.removeEventListener('click', enableSounds);
-    document.removeEventListener('keydown', enableSounds);
     document.removeEventListener('touchstart', enableSounds);
   }
 
   document.addEventListener('click', enableSounds, { once: true });
-  document.addEventListener('keydown', enableSounds, { once: true });
   document.addEventListener('touchstart', enableSounds, { once: true });
-
-  // loadGameState();
-  // initBattle();
 });

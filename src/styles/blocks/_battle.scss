@@ -99,6 +99,16 @@
   margin-bottom: 20px;
 }
 
+.battle__controls-title-attack-span {
+  color: $loses-color;
+  text-decoration: underline;
+}
+
+.battle__controls-title-defence-span {
+  color: $defence-color;
+  text-decoration: underline;
+}
+
 .battle__controls-zone {
   position: relative;
   display: flex;

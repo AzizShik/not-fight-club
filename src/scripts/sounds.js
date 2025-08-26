@@ -18,8 +18,6 @@ export function addSoundsToButtons(volume = 0.1) {
   dataSounds.forEach((el) => {
     const soundName = el.dataset.sound;
 
-    console.log(soundName);
-
     el.addEventListener('click', (e) => {
       if (soundName === 'click') {
         clickSound.play();

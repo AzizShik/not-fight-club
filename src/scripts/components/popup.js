@@ -81,6 +81,7 @@ export async function showPopup(parentElement) {
 
   frodoClickHandler = (e) => {
     gameState.player.avatar = frodoAvatarImg;
+    updateAvatar('frodo');
     initCharacter();
     saveGameState();
     closePopup('[data-popup="character_change"]');
@@ -88,6 +89,7 @@ export async function showPopup(parentElement) {
 
   gandalfAvatarClickHandler = (e) => {
     gameState.player.avatar = gandalfAvatarImg;
+    updateAvatar('gandalf');
     initCharacter();
     saveGameState();
     closePopup('[data-popup="character_change"]');
@@ -95,6 +97,7 @@ export async function showPopup(parentElement) {
 
   aragornAvatarClickHandler = (e) => {
     gameState.player.avatar = aragornAvatarImg;
+    updateAvatar('aragorn');
     initCharacter();
     saveGameState();
     closePopup('[data-popup="character_change"]');
@@ -102,6 +105,7 @@ export async function showPopup(parentElement) {
 
   legolasAvatarClickHandler = (e) => {
     gameState.player.avatar = legolasAvatarImg;
+    updateAvatar('legolas');
     initCharacter();
     saveGameState();
     closePopup('[data-popup="character_change"]');
@@ -202,4 +206,23 @@ export function closePopup(parentElement) {
 
     initToolbar();
   });
+}
+
+export function updateAvatar(avatarName) {
+  const avatarObj = gameState.avatars.find(
+    (item) => item.avatarName === avatarName,
+  );
+
+  gameState.player.attack = avatarObj.attack;
+  gameState.player.attackZones = avatarObj.attackZones;
+  gameState.player.defendZones = avatarObj.defendZones;
+  gameState.player.critChance = avatarObj.critChance;
+  gameState.player.critMultiplier = avatarObj.critMultiplier;
+  gameState.player.maxHealth = avatarObj.maxHealth;
+
+  if (gameState.player.health > avatarObj.maxHealth) {
+    gameState.player.health = avatarObj.health;
+  }
+
+  saveGameState();
 }

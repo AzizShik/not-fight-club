@@ -31,8 +31,6 @@ export const changeWindowHash = (hash) => {
 };
 
 export const handleLocation = async () => {
-  console.log('works!');
-
   const path = window.location.pathname;
   const route = routes[path] || '/home';
 
@@ -50,9 +48,6 @@ export const handleLocation = async () => {
     changeWindowHash('/home');
     initScreens();
   }
-
-  console.log(path);
-  console.log(route);
 
   const html = await fetch(route).then((data) => data.text());
   const toolBar = await fetch('./views/toolbar.html').then((data) =>

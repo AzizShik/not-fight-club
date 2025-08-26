@@ -471,6 +471,15 @@ export function initBattle() {
     const characterTotalHealth = document.querySelector(
       '[data-battle_character_total_health]',
     );
+    const characterAttackZonesTitleEl = document.querySelector(
+      '[data-battle_attack_amount]',
+    );
+    const characterDefenceZonesTitleEl = document.querySelector(
+      '[data-battle_defence_amount]',
+    );
+
+    characterAttackZonesTitleEl.textContent = gameState.player.attackZones;
+    characterDefenceZonesTitleEl.textContent = gameState.player.defendZones;
 
     const characterHealthBg = document.querySelector('[data-avatar_health_bg]');
     const enemyHealthBg = document.querySelector('[data-enemy_health_bg]');
