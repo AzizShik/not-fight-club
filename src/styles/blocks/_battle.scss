@@ -76,10 +76,6 @@
   position: relative;
   z-index: 100;
 }
-.battle__avatar-health-bar-current {
-}
-.battle__avatar-health-bar-total {
-}
 
 .battle__avatar-health-bg {
   position: absolute;
@@ -92,6 +88,8 @@
 }
 
 .battle__controls {
+  max-width: 600px;
+  width: 100%;
 }
 
 .battle__controls-title {
@@ -113,10 +111,8 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  // justify-content: space-between;
   max-width: 600px;
-  gap: 50px;
-  // width: 100%;
+  gap: 90px;
 }
 
 .battle__controls-zone:before {
@@ -133,8 +129,7 @@
 .battle__controls-zone-attack {
   display: flex;
   gap: 10px;
-  max-width: 240px;
-  width: 100%;
+  width: 50%;
   flex-direction: column;
   align-items: flex-end;
 }
@@ -155,8 +150,6 @@
 }
 
 .battle__controls-zone-radio {
-  // max-width: 130px;
-  // width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -166,7 +159,6 @@
   font-size: 36px;
   position: relative;
   text-decoration: underline;
-  // width: 120px;
 }
 
 .battle__controls-zone-radio-label:before {
@@ -246,8 +238,7 @@
 
 .battle__controls-zone-defence {
   display: flex;
-  max-width: 240px;
-  width: 100%;
+  width: 50%;
   gap: 10px;
   flex-direction: column;
   align-items: flex-start;
@@ -307,6 +298,91 @@
   color: $defence-color;
 }
 
+@media (max-width: 1280px) {
+  .battle__panel {
+    gap: 10px;
+  }
+
+
+
+  .battle__controls-title {
+    max-width: 380px;
+    margin-inline: auto;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .battle__controls-zone-title {
+    max-width: 130px;
+  }
+
+  .battle__controls-zone-attack {
+    .battle__controls-zone-title {
+      text-align: right;
+    }
+  }
+
+  .battle__controls-zone-radio-label {
+    font-size: clamp(1.75rem, 1.512rem + 1.19vw, 2.25rem);
+  }
+
+  .battle__avatar-name {
+    font-size: clamp(1.625rem, 1.446rem + 0.89vw, 2rem);
+  }
+}
+
+@media (max-width: 991px) {
+  .battle__controls {
+    flex-shrink: 0;
+    max-width: clamp(20.625rem, 9.925rem + 22.32vw, 23.75rem);
+  }
+  .battle__avatar-image-wrapper {
+    height: clamp(18.75rem, 8.05rem + 22.32vw, 21.875rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .battle__panel {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .battle__avatar {
+    max-width: 70vw;
+    margin-inline: auto;
+  }
+
+  .battle__controls {
+    max-width: 100%;
+    .battle__controls-zone {
+      max-width: 100%;
+    }
+  }
+
+  .battle__log {
+    padding: clamp(0.313rem, -0.359rem + 3.36vw, 1.25rem);
+  }
+
+  .battle__log-item {
+    font-size: clamp(0.875rem, 0.159rem + 3.58vw, 1.875rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .battle__avatar {
+    max-width: 100%;
+  }
+
+  .battle__controls-zone-title {
+    font-size: 26px;
+  }
+
+  .battle__controls-title {
+    font-size: 18px;
+    max-width: 330px;
+  }
+}
+
 .battle__log::-webkit-scrollbar {
   width: 16px;
   background: linear-gradient(135deg, #1a1a16 0%, #29221d 100%);
@@ -364,4 +440,12 @@
 
 .scroll-container::-webkit-scrollbar-thumb {
   animation: ring-glow 3s ease-in-out infinite;
+}
+
+@media (max-width: 767px) {
+  .battle__log::-webkit-scrollbar {
+    width: 10px;
+    background: linear-gradient(135deg, #1a1a16 0%, #29221d 100%);
+    border-left: 2px solid #5d4b2e;
+  }
 }

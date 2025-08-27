@@ -13,8 +13,9 @@ import {
   initBackgroundMusic,
   setUserInteracted,
 } from './sounds';
+import { initBurger } from './components/burger';
 
-initBackgroundMusic();
+// initBackgroundMusic();
 
 window.addEventListener('DOMContentLoaded', () => {
   loadGameState();

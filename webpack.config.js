@@ -35,11 +35,11 @@ module.exports = {
   module: {
     rules: [
       // JS/JSX
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   exclude: /node_modules/,
-      //   use: 'babel-loader',
-      // },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
       // SCSS
       {
         test: /\.s[ac]ss$/i,

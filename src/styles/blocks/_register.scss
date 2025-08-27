@@ -29,6 +29,7 @@
     0 3px 6px rgba($color: $color-theme, $alpha: 0.25);
   transition: all 0.3s ease;
   border: 1px solid $color-theme;
+  border-radius: 4px;
 }
 
 .register__img {
@@ -55,13 +56,34 @@
   font-size: 24px;
 }
 
-.register__input {
-}
+
 
 .register__btn {
   margin-top: 25px;
   position: relative;
   padding-right: 35px;
+}
+
+@media (max-width: 640px) {
+  .register {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .register__container {
+    padding: clamp(0rem, -1.875rem + 9.38vw, 1.875rem);
+    padding-bottom: 10px;
+  }
+
+  .register__img {
+    margin-bottom: 10px;
+    height: clamp(18.75rem, 12.5rem + 31.25vw, 25rem);
+  }
+
+  .register__title {
+    text-align: center;
+    margin-bottom: 15px;
+  }
 }
 
 @media (hover: hover) {

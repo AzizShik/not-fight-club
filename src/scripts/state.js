@@ -42,8 +42,8 @@ export const gameState = {
     },
     {
       avatarName: 'legolas',
-      health: 80,
-      maxHealth: 80,
+      health: 100,
+      maxHealth: 100,
       attack: 18,
       critChance: 0.25,
       critMultiplier: 1.35,

@@ -18,34 +18,36 @@
           </div>
         </div>
         <div class="battle__controls">
-          <div class="battle__controls-title">Please pick 1 Attack zone and 2 Defence zones</div>
+          <div class="battle__controls-title">Please pick <span class="battle__controls-title-attack-span"> <span
+                data-battle_attack_amount>1</span> Attack</span> zone and <span class="battle__controls-title-defence-span">
+              <span data-battle_defence_amount>2</span> Defence</span> zones</div>
           <div class="battle__controls-zone">
             <div class="battle__controls-zone-attack" data-battle_zone_attack>
               <div class="battle__controls-zone-title"><span class="battle__controls-zone-title-attack">Attack</span>
                 Zones</div>
               <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="head" name="attack" value="head"
-                  readonly data-battle_zone_attack_input="head">
+                  readonly data-battle_zone_attack_input="head" data-sound="click">
                 <label for="head" class="battle__controls-zone-radio-label">Head</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="neck" name="attack" value="neck"
-                  readonly data-battle_zone_attack_input="neck">
+                  readonly data-battle_zone_attack_input="neck" data-sound="click">
                 <label for="neck" class="battle__controls-zone-radio-label">Neck</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="body" name="attack" value="body"
-                  readonly data-battle_zone_attack_input="body">
+                  readonly data-battle_zone_attack_input="body" data-sound="click">
                 <label for="body" class="battle__controls-zone-radio-label">Body</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="belly" name="attack" value="belly"
-                  readonly data-battle_zone_attack_input="belly">
+                  readonly data-battle_zone_attack_input="belly" data-sound="click">
                 <label for="belly" class="battle__controls-zone-radio-label">Belly</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_attack_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="legs" name="attack" value="legs"
-                  readonly data-battle_zone_attack_input="legs">
+                  readonly data-battle_zone_attack_input="legs" data-sound="click">
                 <label for="legs" class="battle__controls-zone-radio-label">Legs</label>
               </div>
             </div>
@@ -54,32 +56,33 @@
                 Zones</div>
               <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_head" name="defence"
-                  value="head" readonly data-battle_zone_defence_input="head">
+                  value="head" readonly data-battle_zone_defence_input="head" data-sound="click">
                 <label for="defence_head" class="battle__controls-zone-radio-label">Head</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_neck" name="defence"
-                  value="neck" readonly data-battle_zone_defence_input="neck">
+                  value="neck" readonly data-battle_zone_defence_input="neck" data-sound="click">
                 <label for="defence_neck" class="battle__controls-zone-radio-label">Neck</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_body" name="defence"
-                  value="body" readonly data-battle_zone_defence_input="body">
+                  value="body" readonly data-battle_zone_defence_input="body" data-sound="click">
                 <label for="defence_body" class="battle__controls-zone-radio-label">Body</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_belly" name="defence"
-                  value="belly" readonly data-battle_zone_defence_input="belly">
+                  value="belly" readonly data-battle_zone_defence_input="belly" data-sound="click">
                 <label for="defence_belly" class="battle__controls-zone-radio-label">Belly</label>
               </div>
               <div class="battle__controls-zone-radio" data-battle_zone_defence_radio>
                 <input type="checkbox" class="battle__controls-zone-radio-input" id="defence_legs" name="defence"
-                  value="legs" readonly data-battle_zone_defence_input="legs">
+                  value="legs" readonly data-battle_zone_defence_input="legs" data-sound="click">
                 <label for="defence_legs" class="battle__controls-zone-radio-label">Legs</label>
               </div>
             </div>
           </div>
-          <button class="btn battle__controls-btn btn--ring-icon" data-battle_controls_attack_btn>Attack!</button>
+          <button class="btn battle__controls-btn btn--ring-icon" data-sound="click"
+            data-battle_controls_attack_btn>Attack!</button>
         </div>
         <div class="battle__avatar">
           <div class="battle__avatar-image-wrapper">

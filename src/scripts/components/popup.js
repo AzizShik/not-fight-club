@@ -10,6 +10,7 @@ import { initBattle, cleanBattleLog } from './battle';
 import { addToScreen, showScreen, switchScreen } from '../screens';
 import { initToolbar } from './toolbar';
 import { addSoundsToButtons } from '../sounds';
+import { initBurger } from './burger';
 
 let popupClickHandler = null;
 let frodoClickHandler = null;
@@ -183,6 +184,7 @@ export async function showPopup(parentElement) {
 export function closePopup(parentElement) {
   const popup = document.querySelector(parentElement);
   const popupContainer = popup.querySelector('[data-popup_container]');
+  const body = document.querySelector('body');
 
   const popupShowAnimation = [{ opacity: '1' }, { opacity: '0' }];
 
@@ -197,13 +199,13 @@ export function closePopup(parentElement) {
   );
 
   animate.addEventListener('finish', () => {
+    body.classList.remove('lock');
     popup.classList.remove('popup--active');
     popup.remove();
-
     if (isCharacterView) {
       initCharacter();
     }
-
+    initBurger();
     initToolbar();
   });
 }

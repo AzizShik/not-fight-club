@@ -1,4 +1,5 @@
 import { initBattle } from './components/battle';
+import { initBurger } from './components/burger';
 import { initCharacter } from './components/character';
 import { initHome } from './components/home';
 import { initRegister } from './components/register';
@@ -75,7 +76,9 @@ export const handleLocation = async () => {
     initFunc();
   }
 
-  initToolbar();
+  await initToolbar();
+  await initBurger();
+
   addSoundsToButtons(0.05);
 };
 
