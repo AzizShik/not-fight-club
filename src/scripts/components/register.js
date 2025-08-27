@@ -1,6 +1,6 @@
 import { router } from '../router';
 import { showScreen } from '../screens';
-import { createSound } from '../sounds';
+import { createSound, playBackgroundMusic, setUserInteracted } from '../sounds';
 import { gameState } from '../state';
 import { saveGameState } from '../storage';
 import { initHome } from './home';
@@ -26,6 +26,7 @@ export async function initRegister() {
     await router(e);
     await initHome();
     await initToolbar();
+    setUserInteracted();
   };
 
   registerInputHandler = (e) => {

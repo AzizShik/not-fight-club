@@ -6,7 +6,7 @@ import { initRegister } from './components/register';
 import { initSettings } from './components/settings';
 import { initToolbar } from './components/toolbar';
 import { initScreens } from './screens';
-import { addSoundsToButtons } from './sounds';
+import { addSoundsToButtons, setUserInteracted } from './sounds';
 import { capitalazeFirstLetter } from './utils/capitalaze';
 
 const routes = {
@@ -22,6 +22,8 @@ const routes = {
 export const router = async (e) => {
   const el = e.target;
   const path = el.dataset.link;
+
+  setUserInteracted();
 
   window.history.pushState({}, '', path);
   await handleLocation();

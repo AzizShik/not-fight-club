@@ -15,18 +15,9 @@ import {
 } from './sounds';
 import { initBurger } from './components/burger';
 
-// initBackgroundMusic();
+initBackgroundMusic();
 
 window.addEventListener('DOMContentLoaded', () => {
   loadGameState();
   initScreens();
-
-  function enableSounds() {
-    setUserInteracted();
-    document.removeEventListener('click', enableSounds);
-    document.removeEventListener('touchstart', enableSounds);
-  }
-
-  document.addEventListener('click', enableSounds, { once: true });
-  document.addEventListener('touchstart', enableSounds, { once: true });
 });
