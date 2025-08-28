@@ -16,17 +16,30 @@ import { addSoundsToButtons } from './sounds';
 
 export async function initScreens() {
   loadGameState();
-  if (gameState.player.name) {
-    await showScreen('./views/home.html');
-    await addToScreen('./views/toolbar.html');
-    await initToolbar();
-    await initHome();
-    handleLocation();
-  } else {
-    gameState.player.avatar = frodoAvatarImg;
-    await showScreen('./views/register.html');
+  // if (gameState.player.name) {
+  //   // await showScreen('views/home.html');
+  //   // await addToScreen('views/toolbar.html');
+  //   // await initToolbar();
+  //   // await initHome();
+  //   changeWindowHash('/home');
+  //   handleLocation();
+  // } else {
+  //   gameState.player.avatar = frodoAvatarImg;
+  //   // await showScreen('views/register.html');
+  //   // await initRegister();
+  //   changeWindowHash('/register');
+  //   handleLocation();
+  // }
+
+  if (!gameState.player.name) {
+    // New player → force register screen
+    changeWindowHash('/register'); // sets hash first
+    await showScreen('views/register.html');
     await initRegister();
-    changeWindowHash('/register');
+  } else {
+    // Returning player → go to home
+    changeWindowHash('/home');
+    handleLocation();
   }
 }
 

@@ -5,83 +5,79 @@ import { initHome } from './components/home';
 import { initRegister } from './components/register';
 import { initSettings } from './components/settings';
 import { initToolbar } from './components/toolbar';
-import { initScreens } from './screens';
 import { addSoundsToButtons, setUserInteracted } from './sounds';
-import { capitalazeFirstLetter } from './utils/capitalaze';
+import { gameState } from './state';
 
 const routes = {
-  '/register': '/views/register.html',
-  '/index.html': '/views/home.html',
-  '/': '/views/home.html',
-  '/home': '/views/home.html',
-  '/character': '/views/character.html',
-  '/settings': '/views/settings.html',
-  '/battle': '/views/battle.html',
+  '/register': 'views/register.html',
+  '/home': 'views/home.html',
+  '/character': 'views/character.html',
+  '/settings': 'views/settings.html',
+  '/battle': 'views/battle.html',
 };
 
+// --- Core router ---
 export const router = async (e) => {
   const el = e.target;
   const path = el.dataset.link;
 
   setUserInteracted();
-
-  window.history.pushState({}, '', path);
+  window.location.hash = path;
   await handleLocation();
 };
 
 export const changeWindowHash = (hash) => {
-  window.history.pushState({}, '', hash);
+  window.location.hash = hash;
 };
 
 export const handleLocation = async () => {
-  const path = window.location.pathname;
-  const route = routes[path] || '/home';
+  let path = window.location.hash.replace('#', '') || '/home';
+  const route = routes[path] || 'views/home.html';
 
-  if (path === '/') {
-    changeWindowHash('/home');
-    initScreens();
-  }
+  try {
+    const html = await fetch(route).then((res) => res.text());
 
-  if (path === '/index.html') {
-    changeWindowHash('/home');
-    initScreens();
-  }
+    // Conditionally load toolbar
+    if (gameState.player.name && path !== '/register') {
+      const toolBar = await fetch('views/toolbar.html').then((res) =>
+        res.text(),
+      );
+      document.getElementById('root').innerHTML = html + toolBar;
+      await initToolbar();
+    } else {
+      document.getElementById('root').innerHTML = html;
+    }
 
-  if (!routes[path]) {
-    changeWindowHash('/home');
-    initScreens();
-  }
+    const initialize = {
+      '/home': initHome,
+      '/register': initRegister,
+      '/character': initCharacter,
+      '/settings': initSettings,
+      '/battle': initBattle,
+    };
 
-  const html = await fetch(route).then((data) => data.text());
-  const toolBar = await fetch('./views/toolbar.html').then((data) =>
-    data.text(),
-  );
-
-  document.getElementById('root').innerHTML = html;
-  document.getElementById('root').innerHTML += toolBar;
-
-  const initialize = {
-    '/': initHome,
-    '/index.html': initHome,
-    '/home': initHome,
-    '/register': initRegister,
-    '/character': initCharacter,
-    '/settings': initSettings,
-    '/battle': initBattle,
-  };
-
-  let initFunc = initialize[path];
-
-  if (!initFunc) {
-    initFunc = initHome;
-  } else {
+    const initFunc = initialize[path] || initHome;
     initFunc();
+
+    await initBurger();
+    addSoundsToButtons(0.05);
+  } catch (err) {
+    console.error('Error loading route:', err);
+    changeWindowHash('/home');
+    initHome();
   }
-
-  await initToolbar();
-  await initBurger();
-
-  addSoundsToButtons(0.05);
 };
 
-window.addEventListener('popstate', handleLocation);
+// --- Bootstrapping ---
+document.addEventListener('DOMContentLoaded', () => {
+  let path = window.location.hash.replace('#', '') || '/home';
+
+  if (!gameState.player.name) {
+    changeWindowHash('/register');
+  } else {
+    changeWindowHash(path);
+    handleLocation();
+  }
+});
+
+window.addEventListener('hashchange', handleLocation);

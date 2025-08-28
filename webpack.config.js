@@ -12,21 +12,10 @@ module.exports = {
     filename: 'js/[name].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '',
+    publicPath: isProduction ? '/not-fight-club/' : '/',
   },
   devtool: isProduction ? false : 'inline-source-map',
   mode: isProduction ? 'production' : 'development',
-
-  // mode: 'production',
-  // optimization: {
-  //   minimize: false,
-  //   // Отключаем другие оптимизации
-  //   splitChunks: false,
-  //   runtimeChunk: false,
-  //   usedExports: false,
-  //   sideEffects: false,
-  // },
-  // devtool: 'source-map',
 
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -34,13 +23,11 @@ module.exports = {
 
   module: {
     rules: [
-      // JS/JSX
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
-      // SCSS
       {
         test: /\.s[ac]ss$/i,
         use: [
@@ -51,7 +38,7 @@ module.exports = {
                   publicPath: '../',
                 },
               }
-            : 'style-loader', // HMR in dev
+            : 'style-loader',
           {
             loader: 'css-loader',
             options: { url: true, sourceMap: !isProduction },
@@ -75,37 +62,32 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }, // required by resolve-url-loader
+            options: { sourceMap: true },
           },
         ],
       },
-      // Images
       {
         test: /\.(png|jpe?g|gif|ico)$/i,
         type: 'asset/resource',
         generator: { filename: 'assets/images/[name][ext]' },
       },
-      // Icons
       {
         test: /\.(svg)$/i,
         type: 'asset/resource',
         generator: { filename: 'assets/icons/[name][ext]' },
       },
-      // Fonts
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
         generator: { filename: 'assets/fonts/[name][ext]' },
       },
-      // Sounds
       {
         test: /\.(mp3|wav|ogg)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/sounds/[name][ext]'
-        }
+          filename: 'assets/sounds/[name][ext]',
+        },
       },
-      // HTML
       {
         test: /\.html$/i,
         loader: 'html-loader',
@@ -116,7 +98,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      inject: 'body', // ensures JS injected into body
+      inject: 'body',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
@@ -139,6 +121,11 @@ module.exports = {
           to: 'assets/icons',
           noErrorOnMissing: true,
         },
+        {
+          from: 'src/404.html',
+          to: '404.html',
+          noErrorOnMissing: true,
+        },
       ],
     }),
   ],
@@ -151,8 +138,7 @@ module.exports = {
     static: path.join(__dirname, 'src'),
     port: 8080,
     open: true,
-    hot: true, // HMR enabled
-    watchFiles: ['src/**/*'], // watch all source files
-    historyApiFallback: true, // SPA routing
+    hot: true,
+    watchFiles: ['src/**/*'],
   },
 };
