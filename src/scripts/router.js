@@ -5,7 +5,7 @@ import { initHome } from './components/home';
 import { initRegister } from './components/register';
 import { initSettings } from './components/settings';
 import { initToolbar } from './components/toolbar';
-import { addSoundsToButtons, setUserInteracted } from './sounds';
+import { addSoundsToButtons } from './sounds';
 import { gameState } from './state';
 
 const routes = {
@@ -16,12 +16,10 @@ const routes = {
   '/battle': 'views/battle.html',
 };
 
-// --- Core router ---
 export const router = async (e) => {
   const el = e.target;
   const path = el.dataset.link;
 
-  setUserInteracted();
   window.location.hash = path;
   await handleLocation();
 };
@@ -37,13 +35,13 @@ export const handleLocation = async () => {
   try {
     const html = await fetch(route).then((res) => res.text());
 
-    // Conditionally load toolbar
     if (gameState.player.name && path !== '/register') {
       const toolBar = await fetch('views/toolbar.html').then((res) =>
         res.text(),
       );
       document.getElementById('root').innerHTML = html + toolBar;
       await initToolbar();
+      await initBurger();
     } else {
       document.getElementById('root').innerHTML = html;
     }
@@ -59,7 +57,6 @@ export const handleLocation = async () => {
     const initFunc = initialize[path] || initHome;
     initFunc();
 
-    await initBurger();
     addSoundsToButtons(0.05);
   } catch (err) {
     console.error('Error loading route:', err);
@@ -67,17 +64,5 @@ export const handleLocation = async () => {
     initHome();
   }
 };
-
-// --- Bootstrapping ---
-document.addEventListener('DOMContentLoaded', () => {
-  let path = window.location.hash.replace('#', '') || '/home';
-
-  if (!gameState.player.name) {
-    changeWindowHash('/register');
-  } else {
-    changeWindowHash(path);
-    handleLocation();
-  }
-});
 
 window.addEventListener('hashchange', handleLocation);

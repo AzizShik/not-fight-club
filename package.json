@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --open",
     "build": "cross-env NODE_ENV=production webpack",
-    "deploy": "gh-pages -d dist",
-    "start": "webpack serve --port 8081"
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",

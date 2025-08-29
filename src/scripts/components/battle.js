@@ -413,7 +413,6 @@ export function initBattle() {
   calculateResults();
 
   async function showResultsPopup(result) {
-    console.log(battleLogEl.scrollHeight);
     const savedScrollTop = battleLogEl.scrollTop;
 
     await addToScreen('./views/popup_results.html');

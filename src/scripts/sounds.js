@@ -29,39 +29,3 @@ export function addSoundsToButtons(volume = 0.1) {
     });
   });
 }
-
-import importBgSongUrl from '../assets/sounds/song.mp3';
-
-let backgroundMusic = null;
-let userInteracted = false;
-
-export function initBackgroundMusic(newVolume = 0.025) {
-  if (!backgroundMusic) {
-    const bgSongUrl = importBgSongUrl;
-    backgroundMusic = createSound(bgSongUrl, newVolume);
-    backgroundMusic.loop = true;
-  }
-}
-
-export function playBackgroundMusic() {
-  if (backgroundMusic && userInteracted) {
-    backgroundMusic.play();
-  }
-}
-
-export function changeVolumeBackgroundMusic(newVolume) {
-  if (backgroundMusic && userInteracted) {
-    backgroundMusic.volume = newVolume;
-  }
-}
-
-export function pauseBackgroundMusic() {
-  if (backgroundMusic) {
-    backgroundMusic.pause();
-  }
-}
-
-export function setUserInteracted() {
-  userInteracted = true;
-  playBackgroundMusic();
-}

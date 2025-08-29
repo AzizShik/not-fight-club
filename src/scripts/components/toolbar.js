@@ -1,6 +1,5 @@
 import { router } from '../router';
 import { capitalazeFirstLetter } from '../utils/capitalaze';
-import { initBurger } from './burger';
 
 export async function initToolbar() {
   const dataLinks = document.querySelectorAll('[data-link]');

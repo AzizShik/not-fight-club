@@ -9,7 +9,6 @@ import { initCharacter } from './character';
 import { initBattle, cleanBattleLog } from './battle';
 import { addToScreen, showScreen, switchScreen } from '../screens';
 import { initToolbar } from './toolbar';
-import { addSoundsToButtons } from '../sounds';
 import { initBurger } from './burger';
 
 let popupClickHandler = null;
@@ -141,20 +140,6 @@ export async function showPopup(parentElement) {
     );
   }
 
-  // const registerScreenEl = document.querySelector('[data-screen="register"]');
-  // const homeScreenEl = document.querySelector('[data-screen="home"]');
-  // const characterScreenEl = document.querySelector('[data-screen="character"]');
-  // const settingsScreenEl = document.querySelector('[data-screen="settings"]');
-  // const battleScreenEl = document.querySelector('[data-screen="battle"]');
-
-  // const screens = {
-  //   register: registerScreenEl,
-  //   home: homeScreenEl,
-  //   character: characterScreenEl,
-  //   settings: settingsScreenEl,
-  //   battle: battleScreenEl,
-  // };
-
   changeCharacterResultsBtnHandler = async (e) => {
     closePopup('[data-popup="results"');
     cleanBattleLog();
@@ -221,10 +206,7 @@ export function updateAvatar(avatarName) {
   gameState.player.critChance = avatarObj.critChance;
   gameState.player.critMultiplier = avatarObj.critMultiplier;
   gameState.player.maxHealth = avatarObj.maxHealth;
-
-  if (gameState.player.health > avatarObj.maxHealth) {
-    gameState.player.health = avatarObj.health;
-  }
+  gameState.player.health = avatarObj.health;
 
   saveGameState();
 }
