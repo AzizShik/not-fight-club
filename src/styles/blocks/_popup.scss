@@ -1,0 +1,198 @@
+@use '../common/variables.scss' as *;
+
+.popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  z-index: 101;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba($color: $bg-theme, $alpha: 0.5);
+}
+
+.popup--active {
+  display: flex;
+}
+
+.popup__container {
+  position: relative;
+  width: 85vw;
+  min-height: 620px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: $color-theme;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.popup__title {
+  color: $bg-theme;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.popup__close {
+  position: absolute;
+  z-index: 101;
+  right: 10px;
+  top: 10px;
+  border: 1px solid $bg-theme;
+  background: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba($color: $bg-theme, $alpha: 0.15),
+    0 3px 6px rgba($color: $bg-theme, $alpha: 0.25);
+  transition: all 0.3s ease;
+}
+
+.popup__close-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.popup[data-popup='results'] .popup__results-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.popup[data-popup='results'] .popup__container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  width: 75vw;
+}
+
+.popup[data-popup='results'] .popup__container {
+  min-height: 440px;
+}
+
+.popup[data-popup='results'] .popup__title {
+  font-size: clamp(1.5rem, 1.086rem + 2.07vw, 3rem);
+  margin-top: 30px;
+}
+
+.popup__results-btns-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.popup__results-btn {
+  border: 1px solid $bg-theme;
+}
+
+.popup__content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.popup__content-item {
+  box-shadow: 0 3px 6px rgba($color: $bg-theme, $alpha: 0.15),
+    0 3px 6px rgba($color: $bg-theme, $alpha: 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid $bg-theme;
+  border-radius: 4px;
+}
+
+.popup__content-item-img-wrapper {
+  height: 350px;
+  border-radius: 4px;
+}
+
+.popup__content-item-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+@media (max-width: 1280px) {
+  .popup__container {
+    width: 80vw;
+  }
+
+  .popup__content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .popup[data-popup='results'] .popup__title {
+    max-width: clamp(25.625rem, 10.623rem + 24.22vw, 30rem);
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .popup__container {
+    width: 100vw;
+  }
+
+  .popup[data-popup='results'] .popup__container {
+    min-height: 400px;
+    justify-content: flex-start;
+  }
+
+  .popup[data-popup='results'] .popup__title {
+    font-size: clamp(1.5rem, 1.142rem + 1.79vw, 2rem);
+    max-width: 60%;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  .popup__content {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .popup__title {
+    margin-inline: auto;
+  }
+
+  .popup[data-popup='results'] .popup__container {
+    width: 90vw;
+    min-height: 350px;
+    justify-content: flex-start;
+  }
+}
+
+@media (hover: hover) {
+  .popup__close:hover {
+    box-shadow: 2px 6px 6px rgba($color: $bg-theme, $alpha: 0.15),
+      2px 6px 6px rgba($color: $bg-theme, $alpha: 0.25);
+  }
+
+  .popup__content-item:hover {
+    box-shadow: 2px 10px 10px rgba($color: $bg-theme, $alpha: 0.35),
+      2px 10px 10px rgba($color: $bg-theme, $alpha: 0.35);
+  }
+
+  .popup__close:active {
+    box-shadow: 2px 10px 10px rgba($color: $bg-theme, $alpha: 0.45),
+      2px 10px 10px rgba($color: $bg-theme, $alpha: 0.55);
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  .popup__content-item:active {
+    box-shadow: 2px 10px 10px rgba($color: $bg-theme, $alpha: 0.45),
+      2px 10px 10px rgba($color: $bg-theme, $alpha: 0.55);
+    transform: translateY(-1px);
+  }
+}

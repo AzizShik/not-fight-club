@@ -1,0 +1,114 @@
+.settings {
+  display: flex;
+  padding-top: 150px;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  background-image: url('../../assets/images/settings-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.settings__change-name {
+  display: flex;
+  align-items: center;
+  // max-width: 400px;
+  min-height: 55px;
+  width: 100%;
+  gap: 20px;
+}
+
+.settings__change-name__input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: fit-content;
+  flex-shrink: 0;
+  flex-grow: 1;
+  width: 100%;
+}
+
+
+.settings__change-name__input-label {
+  font-size: 32px;
+  width: 100%;
+  max-width: fit-content;
+  flex-shrink: 0;
+  word-break: keep-all;
+}
+
+.settings__change-name__input {
+  display: none;
+  max-width: 300px;
+  width: 100%;
+}
+
+.settings__change-name__current-name {
+  font-size: 42px;
+  text-decoration: underline;
+}
+
+
+
+.settings__change-name--active {
+  .settings__change-name__input {
+    display: block;
+  }
+
+  .settings__change-name__current-name {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .settings__change-name__input {
+    max-width: clamp(6.25rem, -5.871rem + 60.61vw, 18.75rem);
+  }
+}
+
+@media (max-width: 650px) {
+  .settings__change-name {
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .settings__change-name__input-label {
+    font-size: clamp(1.25rem, 0.523rem + 3.64vw, 2rem);
+    max-width: clamp(6.875rem, 3.239rem + 18.18vw, 10.625rem);
+    text-align: right;
+  }
+
+  .settings__change-name__current-name {
+    font-size: clamp(1.5rem, 0.409rem + 5.45vw, 2.625rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .settings__change-name__input-label {
+    max-width: fit-content;
+  }
+
+  .settings__change-name__input {
+    max-width: 100%;
+  }
+
+  .settings__change-name__input-wrapper {
+    flex-direction: column;
+  }
+
+  .settings__change-name {
+    gap: 15px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .settings__change-name__current-name {
+    min-height: 53px;
+  }
+
+  .settings__change-name-btn {
+    max-width: 150px;
+    width: 100%;
+  }
+}
